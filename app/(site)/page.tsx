@@ -1,9 +1,7 @@
-import Image from 'next/image';
-
 const Home = () => {
   return (
-    <main>
-
+    <main className='text-3xl text-yellow-500'>
+      Hello Awrify!
     </main>
   )
 };

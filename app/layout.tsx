@@ -1,22 +1,23 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
+import type { Metadata } from 'next';
 
-const inter = Inter({ subsets: ['latin'] })
+import { clash, mona, nohemi } from '@/lib/fontConfig';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Awrific Music',
+  title: 'Awrify',
 }
 
 interface Props {
   children: ReactNode;
 }
 
-const RootLayout = ({children}: Props) => {
+const RootLayout = ({ children }: Props) => {
+  const fontVariables = `${clash.variable} ${mona.variable} ${nohemi.variable}`;
+
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={`${fontVariables}`}>
+      <body className='font-clash'>
         {children}
       </body>
     </html>
