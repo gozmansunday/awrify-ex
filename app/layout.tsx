@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import type { Metadata } from 'next';
+import { ReactNode } from "react";
+import type { Metadata } from "next";
 
-import { clash, mona, nohemi } from '@/lib/fontConfig';
-import './globals.css';
-import Sidebar from '@/components/Sidebar';
+import { clash, mona, nohemi } from "@/lib/fontConfig";
+import "./globals.css";
+import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
-  title: 'Awrify',
+  title: "Awrify",
 }
 
 interface Props {
@@ -18,7 +18,7 @@ const RootLayout = ({ children }: Props) => {
 
   return (
     <html lang="en" className={`${fontVariables}`}>
-      <body className='font-clash'>
+      <body className="font-clash p-2">
         <Sidebar>
           {children}
         </Sidebar>
