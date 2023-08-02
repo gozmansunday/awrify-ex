@@ -1,10 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ["class"],
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './overhaul/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
 
   future: {
@@ -29,21 +30,23 @@ module.exports = {
         nohemi: ['var(--font-nohemi)'],
       },
 
-      colors: {
-        'primary': '#008753',
-      },
-
       keyframes: {
-        marquee: {
-          '100%': { transform: 'translate(-100%, 0)' }
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
         },
       },
 
       animation: {
-        marquee: 'marquee 5s linear infinite',
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
-
-  plugins: [],
+  
+  plugins: [require("tailwindcss-animate")],
 }

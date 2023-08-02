@@ -18,7 +18,7 @@ const RootLayout = ({ children }: Props) => {
 
   return (
     <html lang="en" className={`${fontVariables}`}>
-      <body className="font-clash p-2">
+      <body className="font-clash md:p-2">
         <Sidebar>
           {children}
         </Sidebar>
