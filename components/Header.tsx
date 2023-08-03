@@ -39,10 +39,10 @@ const Header = ({ children, className }: Props) => {
 
         {/* Mobile devices home button */}
         <div className="flex items-center gap-3 md:hidden">
-          <Button size="icon" className="rounded-full shadow-none bg-brand text-darkest">
+          <Button size="icon" className="rounded-full shadow-none bg-dark text-lightest">
             <BsHouseFill size={16} />
           </Button>
-          <Button size="icon" className="rounded-full shadow-none bg-brand text-darkest">
+          <Button size="icon" className="rounded-full shadow-none bg-dark text-lightest">
             <BsSearch size={16} />
           </Button>
         </div>
