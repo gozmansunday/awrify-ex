@@ -8,9 +8,9 @@ interface Props {
 
 const Box = ({ children, className }: Props) => {
   return (
-    <div className={twMerge(`bg-neutral-900 h-fit w-full rounded-lg`, className)}>
+    <section className={twMerge(`py-4 flex flex-col gap-3`, className)}>
       {children}
-    </div>
+    </section>
   );
 };
 
