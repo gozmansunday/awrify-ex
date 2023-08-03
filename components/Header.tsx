@@ -1,11 +1,12 @@
 "use client";
 
 import { ReactNode } from "react";
-import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
-import { BsHouseDoorFill, BsSearch } from "react-icons/bs";
-import Button from "./Button";
+import { useRouter } from "next/navigation";
+import { BsChevronLeft, BsChevronRight, BsHouseFill, BsSearch } from "react-icons/bs";
+
+// Components
+import { Button } from "./ui/button";
 
 interface Props {
   children: ReactNode;
@@ -16,59 +17,50 @@ const Header = ({ children, className }: Props) => {
   const router = useRouter();
 
   const handleLogout = () => {
-    // Handle logout later!
+
   };
 
   return (
-    <div className={twMerge(`h-fit p-6 bg-gradient-to-b from-yellow-800`, className)}>
-      <div className="flex items-center justify-between mb-4">
-        <div className="hidden items-center gap-x-2 md:flex">
-          <button
-            onClick={() => router.back()}
-            className="text-white bg-black rounded-full hover:opacity-80 transition"
+    <header className={twMerge(``, className)}>
+      <div className="flex items-center justify-between pb-6 md:pb-8">
+        {/* Large screen devices back and forward buttons */}
+        <div className="hidden items-center gap-3 md:flex">
+          <Button size="icon" onClick={() => router.back()}
+            className="rounded-full shadow-none hover:text-darkest hover:bg-brand"
           >
-            <RxCaretLeft size={36} />
-          </button>
-          <button
-            onClick={() => router.forward()}
-            className="text-white bg-black rounded-full hover:opacity-80 transition"
+            <BsChevronLeft size={20} />
+          </Button>
+          <Button size="icon" onClick={() => router.forward()}
+            className="rounded-full shadow-none hover:text-darkest hover:bg-brand"
           >
-            <RxCaretRight size={36} />
-          </button>
+            <BsChevronRight size={20} />
+          </Button>
         </div>
 
-        <div className="flex items-center gap-x-2 md:hidden">
-          <button className="bg-white p-2 rounded-full hover:opacity-80 transition">
-            <BsHouseDoorFill className="text-black" size={18} />
-          </button>
-          <button className="bg-white p-2 rounded-full hover:opacity-80 transition">
-            <BsSearch className="text-black" size={18} />
-          </button>
+        {/* Mobile devices home button */}
+        <div className="flex items-center gap-3 md:hidden">
+          <Button size="icon" className="rounded-full shadow-none bg-brand text-darkest">
+            <BsHouseFill size={16} />
+          </Button>
+          <Button size="icon" className="rounded-full shadow-none bg-brand text-darkest">
+            <BsSearch size={16} />
+          </Button>
         </div>
 
-        <div className="flex justify-between items-center gap-x-4">
-          <>
-            <div>
-              <Button
-                onClick={() => { }}
-                className="bg-transparent text-neutral-300 font-medium"
-              >
-                Sign up
-              </Button>
-            </div>
-            <div>
-              <Button
-                onClick={() => { }}
-                className="bg-white px-6 py-2"
-              >
-                Log in
-              </Button>
-            </div>
-          </>
+        {/* Sign up and Log in buttons */}
+        <div className="flex items-center gap-2 md:gap-4">
+          <Button className="text-sm text-lightest bg-transparent shadow-none hover:text-mid hover:bg-transparent md:text-base">
+            Sign up
+          </Button>
+          <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest md:text-base md:py-3 md:px-6">
+            Log in
+          </Button>
         </div>
       </div>
-    </div>
-  );
+
+      {children}
+    </header>
+  )
 };
 
 export default Header;

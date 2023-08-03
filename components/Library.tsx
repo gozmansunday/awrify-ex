@@ -2,31 +2,33 @@
 
 import { BsMusicNoteList, BsPlusLg } from "react-icons/bs";
 
+// Components
+import Box from "./Box";
+import { Button } from "./ui/button";
+
 const Library = () => {
-  const handleClick = () => {
-    // Handle upload later!
+  const handleUpload = () => {
+    // Handle upload
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between px-5 py-4">
-        <div className="flex gap-3 items-center text-neutral-400">
-          <BsMusicNoteList size={24} />
-          <p className="text-xl">Your Library</p>
+    <section className="h-full overflow-y-auto">
+      <div className="flex items-center justify-between text-mid">
+        <div className="inline-flex items-center gap-3">
+          <BsMusicNoteList size={22} />
+          <h3 className="">Library</h3>
         </div>
 
-        <BsPlusLg
-          onClick={handleClick}
-          size={20}
-          className="text-neutral-400 cursor-pointer hover:text-white transition"
-        />
+        <Button onClick={handleUpload} size="icon" className="text-mid shadow-none hover:text-lightest">
+          <BsPlusLg size={22} />
+        </Button>
       </div>
 
-      <div className="flex flex-col gap-y-2 text-lg px-5 py-4">
+      <Box>
         List of songs!
-      </div>
-    </div>
-  );
+      </Box>
+    </section>
+  )
 };
 
 export default Library;
