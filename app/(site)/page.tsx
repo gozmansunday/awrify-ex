@@ -1,10 +1,18 @@
 import Header from "@/components/Header";
+import ListItem from "@/components/ListItem";
 
 const Home = () => {
   return (
-    <main className="h-full w-full bg-neutral-900 overflow-hidden overflow-y-auto md:rounded-lg">
+    <main className="p-3 md:p-6">
       <Header>
-
+        <div>
+          <h1 className="text-lightest text-3xl font-semibold md:text-4xl">
+            Welcome back
+          </h1>
+        </div>
+        <div className="grid grid-cols-1">
+          {/* <ListItem /> */}
+        </div>
       </Header>
     </main>
   )

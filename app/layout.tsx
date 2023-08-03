@@ -1,9 +1,11 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 
-import { clash, mona, nohemi } from "@/lib/fontConfig";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
+import { clash, hubot, mona, neo, nohemi } from "@/lib/fontConfig";
+
+// Components
+import Wrapper from "@/components/Wrapper";
 
 export const metadata: Metadata = {
   title: "Awrify",
@@ -14,14 +16,14 @@ interface Props {
 }
 
 const RootLayout = ({ children }: Props) => {
-  const fontVariables = `${clash.variable} ${mona.variable} ${nohemi.variable}`;
+  const fontVariables = `${clash.variable} ${hubot.variable} ${mona.variable} ${neo.variable} ${nohemi.variable}`;
 
   return (
     <html lang="en" className={`${fontVariables}`}>
-      <body className="font-clash md:p-2">
-        <Sidebar>
+      <body className="font-hubot bg-darkest">
+        <Wrapper>
           {children}
-        </Sidebar>
+        </Wrapper>
       </body>
     </html>
   )
