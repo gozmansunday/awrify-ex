@@ -36,13 +36,14 @@ module.exports = {
       fontFamily: {
         clash: ['var(--font-clash)'],
         hubot: ['var(--font-hubot)'],
+        manrope: ['var(--font-manrope)'],
         mona: ['var(--font-mona)'],
         neo: ['var(--font-neo)'],
         nohemi: ['var(--font-nohemi)'],
       },
 
       colors: {
-        brand: "#FACC15",
+        brand: "#15D155",
         darkest: "#0A0A0A",
         dark: "#171717",
         mid: "#8B8B9A",
