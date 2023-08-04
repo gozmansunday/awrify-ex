@@ -23,6 +23,15 @@ const Home = () => {
           />
         </div>
       </Header>
+
+      <section className="mt-8 mb-3">
+        <div>
+          <h1 className="text-lightest text-2xl md:text-3xl">Newest Songs</h1>
+        </div>
+        <div>
+          List of songs!
+        </div>
+      </section>
     </main>
   )
 };
