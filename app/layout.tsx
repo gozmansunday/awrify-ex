@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 
 import "./globals.css";
-import { clash, hubot, mona, neo, nohemi } from "@/lib/fontConfig";
+import { clash, hubot, manrope, mona, neo, nohemi } from "@/lib/fontConfig";
 
 // Components
 import Wrapper from "@/components/Wrapper";
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const RootLayout = ({ children }: Props) => {
-  const fontVariables = `${clash.variable} ${hubot.variable} ${mona.variable} ${neo.variable} ${nohemi.variable}`;
+  const fontVariables = `${clash.variable} ${hubot.variable} ${manrope.variable} ${mona.variable} ${neo.variable} ${nohemi.variable}`;
 
   return (
     <html lang="en" className={`${fontVariables}`}>
