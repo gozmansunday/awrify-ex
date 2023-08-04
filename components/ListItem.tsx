@@ -25,7 +25,10 @@ const ListItem = ({ icon: Icon, name, href }: Props) => {
     >
       <section className="flex items-center gap-3 h-full md:gap-5">
         <Icon className="text-3xl md:text-4xl" />
-        <h3 className="text-2xl font-semibold font-clash pt-1.5 md:text-3xl">Favorite Songs</h3>
+        <div className="font-clash -space-y-2 text-left">
+          <h3 className="text-lg font-semibold md:text-xl">Favorite Songs</h3>
+          <h5 className="text-sm md:text-base">0 songs</h5>
+        </div>
       </section>
 
       <BsPlayCircleFill className="text-darkest text-5xl rounded-full transition md:opacity-0 group-hover:opacity-100 hover:scale-110 md:text-6xl" />
