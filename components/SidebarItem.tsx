@@ -17,7 +17,7 @@ const SidebarItem = ({ icon: Icon, label, active, href }: Props) => {
         active && "bg-brand text-darkest hover:bg-brand"
       )}
     >
-      <Icon size={24} className="pb-1" />
+      <Icon className="text-2xl pb-1" />
       <p>{label}</p>
     </Link>
   )

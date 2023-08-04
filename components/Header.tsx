@@ -17,7 +17,7 @@ const Header = ({ children, className }: Props) => {
   const router = useRouter();
 
   const handleLogout = () => {
-
+    // Hnadle logout
   };
 
   return (
@@ -28,22 +28,22 @@ const Header = ({ children, className }: Props) => {
           <Button size="icon" onClick={() => router.back()}
             className="rounded-full shadow-none hover:text-darkest hover:bg-brand"
           >
-            <BsChevronLeft size={20} />
+            <BsChevronLeft className="text-xl" />
           </Button>
           <Button size="icon" onClick={() => router.forward()}
             className="rounded-full shadow-none hover:text-darkest hover:bg-brand"
           >
-            <BsChevronRight size={20} />
+            <BsChevronRight className="text-xl" />
           </Button>
         </div>
 
         {/* Mobile devices home button */}
         <div className="flex items-center gap-3 md:hidden">
           <Button size="icon" className="rounded-full shadow-none bg-dark text-lightest">
-            <BsHouseFill size={16} />
+            <BsHouseFill className="text-lg" />
           </Button>
           <Button size="icon" className="rounded-full shadow-none bg-dark text-lightest">
-            <BsSearch size={16} />
+            <BsSearch className="text-lg" />
           </Button>
         </div>
 
@@ -52,7 +52,7 @@ const Header = ({ children, className }: Props) => {
           <Button className="text-sm text-lightest bg-transparent shadow-none hover:text-mid hover:bg-transparent md:text-base">
             Sign up
           </Button>
-          <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest md:text-base md:py-3 md:px-6">
+          <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
             Log in
           </Button>
         </div>
