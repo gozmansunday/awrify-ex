@@ -8,7 +8,8 @@ import { GiCompactDisc } from "react-icons/gi";
 
 // Components
 import { Button } from "./ui/button";
-import AuthModal from "./AuthModal";
+import SignUpModal from "./SignUpModal";
+import LogInModal from "./LogInModal";
 
 interface Props {
   children: ReactNode;
@@ -51,14 +52,11 @@ const Header = ({ children, className }: Props) => {
 
         {/* Sign up and Log in buttons */}
         <div className="flex items-center gap-2 md:gap-4">
-          {/* <Button className="text-sm text-lightest bg-transparent shadow-none hover:text-mid hover:bg-transparent md:text-base">
-            Sign up
-          </Button> */}
-          <AuthModal
+          <SignUpModal
             content="Sign up"
             className="bg-transparent text-lightest hover:text-mid hover:bg-transparent px-0 py-1 md:px-0 md:py-1"
           />
-          <AuthModal
+          <LogInModal
             content="Log in"
             className="bg-brand text-darkest hover:bg-light"
           />
