@@ -26,7 +26,7 @@ const ListItem = ({ icon: Icon, name, href }: Props) => {
       <section className="flex items-center gap-3 h-full md:gap-5">
         <Icon className="text-3xl md:text-4xl" />
         <div className="font-clash -space-y-2 text-left">
-          <h3 className="text-lg font-semibold md:text-xl">Favorite Songs</h3>
+          <h3 className="text-lg font-semibold md:text-xl">{name}</h3>
           <h5 className="text-sm md:text-base">0 songs</h5>
         </div>
       </section>
