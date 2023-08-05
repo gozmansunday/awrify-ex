@@ -2,7 +2,7 @@
 
 import { BsStarFill } from "react-icons/bs";
 
-// Components
+// Local imports
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { BsChevronLeft, BsChevronRight, BsHouseFill, BsSearch } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
 
-// Components
+// Local imports
 import { Button } from "./ui/button";
 import SignUpModal from "./SignUpModal";
 import LogInModal from "./LogInModal";

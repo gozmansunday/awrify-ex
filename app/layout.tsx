@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
-import "./globals.css";
 
-// Components
+// Local imports
+import "./globals.css";
 import { clash, hubot, manrope, mona, neo, nohemi } from "@/lib/fontConfig";
 import Wrapper from "@/components/Wrapper";
 

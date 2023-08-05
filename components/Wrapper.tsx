@@ -6,7 +6,7 @@ import { BsHouseFill, BsSearch } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
 import { GiRingedPlanet } from "react-icons/gi";
 
-// Components
+// Local imports
 import Box from "./Box";
 import SidebarItem from "./SidebarItem";
 import Library from "./Library";
