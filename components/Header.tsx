@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { useRouter } from "next/navigation";
 import { BsChevronLeft, BsChevronRight, BsHouseFill, BsSearch } from "react-icons/bs";
+import { GiCompactDisc } from "react-icons/gi";
 
 // Components
 import { Button } from "./ui/button";
@@ -39,11 +40,11 @@ const Header = ({ children, className }: Props) => {
 
         {/* Mobile devices home button */}
         <div className="flex items-center gap-3 md:hidden">
-          <Button size="icon" className="rounded-full shadow-none bg-dark text-lightest">
-            <BsHouseFill className="text-lg" />
+          <Button size="icon" className="rounded-full shadow-none bg-brand text-darkest">
+            <GiCompactDisc className="text-3xl" />
           </Button>
           <Button size="icon" className="rounded-full shadow-none bg-dark text-lightest">
-            <BsSearch className="text-lg" />
+            <BsSearch className="text-xl" />
           </Button>
         </div>
 
