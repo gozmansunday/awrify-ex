@@ -31,7 +31,7 @@ const ListItem = ({ icon: Icon, name, href }: Props) => {
         </div>
       </section>
 
-      <BsPlayCircleFill className="text-darkest text-5xl rounded-full transition md:opacity-0 group-hover:opacity-100 hover:scale-110 md:text-6xl" />
+      <BsPlayCircleFill className="text-darkest text-5xl rounded-full transition group-hover:opacity-100 hover:scale-110 md:text-6xl lg:opacity-0" />
     </button>
   );
 };

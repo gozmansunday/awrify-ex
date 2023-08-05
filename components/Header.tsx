@@ -8,6 +8,7 @@ import { GiCompactDisc } from "react-icons/gi";
 
 // Components
 import { Button } from "./ui/button";
+import AuthModal from "./AuthModal";
 
 interface Props {
   children: ReactNode;
@@ -40,22 +41,27 @@ const Header = ({ children, className }: Props) => {
 
         {/* Mobile devices home button */}
         <div className="flex items-center gap-3 md:hidden">
-          <Button size="icon" className="rounded-full shadow-none bg-brand text-darkest">
+          <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-brand text-darkest">
             <GiCompactDisc className="text-3xl" />
           </Button>
-          <Button size="icon" className="rounded-full shadow-none bg-dark text-lightest">
-            <BsSearch className="text-xl" />
+          <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-dark text-lightest">
+            <BsSearch className="text-2xl" />
           </Button>
         </div>
 
         {/* Sign up and Log in buttons */}
         <div className="flex items-center gap-2 md:gap-4">
-          <Button className="text-sm text-lightest bg-transparent shadow-none hover:text-mid hover:bg-transparent md:text-base">
+          {/* <Button className="text-sm text-lightest bg-transparent shadow-none hover:text-mid hover:bg-transparent md:text-base">
             Sign up
-          </Button>
-          <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
-            Log in
-          </Button>
+          </Button> */}
+          <AuthModal
+            content="Sign up"
+            className="bg-transparent text-lightest hover:text-mid hover:bg-transparent px-0 py-1 md:px-0 md:py-1"
+          />
+          <AuthModal
+            content="Log in"
+            className="bg-brand text-darkest hover:bg-light"
+          />
         </div>
       </div>
 
