@@ -54,7 +54,7 @@ const Header = ({ children, className }: Props) => {
         <div className="flex items-center gap-2 md:gap-4">
           <SignUpModal
             content="Sign up"
-            className="bg-transparent text-lightest hover:text-mid hover:bg-transparent px-0 py-1 md:px-0 md:py-1"
+            className="bg-dark text-lightest hover:text-darkest hover:bg-brand"
           />
           <LogInModal
             content="Log in"
