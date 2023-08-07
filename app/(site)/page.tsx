@@ -4,19 +4,19 @@ import { BsStarFill } from "react-icons/bs";
 
 // Local imports
 import Header from "@/components/Header";
-import ListItem from "@/components/ListItem";
+import FavSongs from "@/components/FavSongs";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <main className="p-3 md:p-6">
       <Header>
         <div>
-          <h1 className="text-lightest text-4xl font-semibold md:text-5xl">
-            Welcome back
+          <h1 className="text-lightest text-3xl font-semibold md:text-4xl">
+            Listen to the best music!
           </h1>
         </div>
         <div className="grid mt-5 lg:grid-cols-2 md:mt-8">
-          <ListItem
+          <FavSongs
             icon={BsStarFill}
             name="Favorite Songs"
             href="favorite"
@@ -36,4 +36,4 @@ const Home = () => {
   )
 };
 
-export default Home;
+export default HomePage;
