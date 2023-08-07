@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 // Local imports
 import "./globals.css";
 import { clash, hubot, manrope, mona, neo, nohemi } from "@/lib/fontConfig";
-import Wrapper from "@/components/Wrapper";
 
 export const metadata: Metadata = {
   title: "Awrify",
@@ -19,11 +18,9 @@ const RootLayout = ({ children }: Props) => {
 
   return (
     <html lang="en" className={`${fontVariables}`}>
-      <body className="font-hubot bg-darkest">
-        <Wrapper>
-          {children}
-        </Wrapper>
-      </body>
+      <body className="font-hubot bg-darkest min-h-[100dvh]">
+        {children}
+    </body>
     </html>
   )
 }
