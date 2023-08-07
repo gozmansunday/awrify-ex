@@ -34,7 +34,7 @@ const Wrapper = ({ children }: Props) => {
   ], [])
 
   return (
-    <div className="grid h-full md:grid-cols-[18rem_1fr] lg:grid-cols-[20rem_1fr]">
+    <div className="grid min-h-[100dvh] md:grid-cols-[18rem_1fr] lg:grid-cols-[20rem_1fr]">
       {/* Sidebar */}
       <aside className="hidden flex-col gap-8 p-6 bg-dark md:flex">
         <section className="flex items-center gap-3">

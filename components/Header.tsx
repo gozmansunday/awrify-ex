@@ -5,11 +5,10 @@ import { twMerge } from "tailwind-merge";
 import { useRouter } from "next/navigation";
 import { BsChevronLeft, BsChevronRight, BsHouseFill, BsSearch } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
+import Link from "next/link";
 
 // Local imports
 import { Button } from "./ui/button";
-import SignUpModal from "./SignUpModal";
-import LogInModal from "./LogInModal";
 
 interface Props {
   children: ReactNode;
@@ -20,7 +19,7 @@ const Header = ({ children, className }: Props) => {
   const router = useRouter();
 
   const handleLogout = () => {
-    // Hnadle logout
+    // Handle logout
   };
 
   return (
@@ -52,14 +51,17 @@ const Header = ({ children, className }: Props) => {
 
         {/* Sign up and Log in buttons */}
         <div className="flex items-center gap-2 md:gap-4">
-          <SignUpModal
-            content="Sign up"
-            className="bg-dark text-lightest hover:text-darkest hover:bg-brand"
-          />
-          <LogInModal
-            content="Log in"
-            className="bg-brand text-darkest hover:bg-light"
-          />
+          <Link href="/signup">
+            <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-dark text-lightest hover:text-darkest hover:bg-brand md:text-base md:py-3 md:px-6">
+              Sign up
+            </Button>
+          </Link>
+
+          <Link href="/login">
+            <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
+              Log in
+            </Button>
+          </Link>
         </div>
       </div>
 
