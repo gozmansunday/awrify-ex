@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import FormDivider from "@/components/FormDivider";
 import { SignUpInfo } from "@/interfaces/auth";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Label } from "@/components/ui/label";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -64,29 +66,30 @@ const SignUpPage = () => {
           >
             {/* Name */}
             <section className="space-y-1">
-              <label htmlFor="name" className="text-sm">Name</label>
+              <Label htmlFor="name" className="text-sm">What should we call you?</Label>
               <Input type="text" id="name" name="name" required
                 className="bg-inherit border-neutral-600 transition"
-                placeholder="John Doe"
+                placeholder="Enter a profile name."
                 onChange={handleInputChange}
               />
             </section>
 
             {/* Email Address */}
             <section className="space-y-1">
-              <label htmlFor="email" className="text-sm">Email Address</label>
+              <Label htmlFor="email" className="text-sm">What&apos;s your email address?</Label>
               <Input type="email" id="email" name="email" required
                 className="bg-inherit border-neutral-600 transition"
-                placeholder="example@email.com"
+                placeholder="Enter your email."
                 onChange={handleInputChange}
               />
             </section>
 
             {/* Password */}
             <section className="space-y-1">
-              <label htmlFor="password" className="text-sm">Password</label>
+              <Label htmlFor="password" className="text-sm">Create a password</Label>
               <Input type="password" id="password" name="password" required
                 className="bg-inherit border-neutral-600 transition"
+                placeholder="Create a password."
                 onChange={handleInputChange}
               />
             </section>
@@ -97,7 +100,9 @@ const SignUpPage = () => {
           </form>
 
           <div className="flex flex-col items-center gap-2 text-center text-sm text-mid py-0  mt-8 shadow-none">
-            <p className="underline cursor-pointer w-fit transition hover:text-light">Already have an account? Log in</p>
+            <Link href="/login">
+              <p className="underline cursor-pointer w-fit transition hover:text-light">Already have an account? Log in</p>
+            </Link>
           </div>
         </CardContent>
       </Card>

@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import FormDivider from "@/components/FormDivider";
 import { LogInInfo } from "@/interfaces/auth";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Label } from "@/components/ui/label";
 
 const LogInPage = () => {
   const router = useRouter();
@@ -61,9 +63,9 @@ const LogInPage = () => {
             onSubmit={handleSubmitForm}
             className="flex flex-col gap-6 md:px-12"
           >
-            {/* Email Address */}
+            {/* Email */}
             <section className="space-y-1">
-              <label htmlFor="email" className="text-sm">Email Address</label>
+              <Label htmlFor="email" className="text-sm">Email</Label>
               <Input type="email" id="email" name="email" required
                 className="bg-inherit border-neutral-600 transition"
                 placeholder="example@email.com"
@@ -73,21 +75,24 @@ const LogInPage = () => {
 
             {/* Password */}
             <section className="space-y-1">
-              <label htmlFor="password" className="text-sm">Password</label>
+              <Label htmlFor="password" className="text-sm">Password</Label>
               <Input type="password" id="password" name="password" required
                 className="bg-inherit border-neutral-600 transition"
+                placeholder="password"
                 onChange={handleInputChange}
               />
             </section>
 
             <Button className="w-full py-6 mt-2 bg-brand text-darkest hover:bg-lightest">
-              Sign up
+              Log in
             </Button>
           </form>
 
           <div className="flex flex-col items-center gap-2 text-center text-sm text-mid py-0  mt-8 shadow-none">
             <p className="underline cursor-pointer w-fit transition hover:text-light">Forgot your password?</p>
-            <p className="underline cursor-pointer w-fit transition hover:text-light">Don&apos;t have an account? Sign up</p>
+            <Link href="/signup">
+              <p className="underline cursor-pointer w-fit transition hover:text-light">Don&apos;t have an account? Sign up</p>
+            </Link>
           </div>
         </CardContent>
       </Card>
