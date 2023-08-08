@@ -13,19 +13,17 @@ import { Input } from "@/components/ui/input";
 import FormDivider from "@/components/FormDivider";
 import { LogInInfo } from "@/interfaces/auth";
 import { Label } from "@/components/ui/label";
-import { useSessionDataStore, useLoggedInStore } from "@/hooks/useStore";
+import { useSessionDataStore } from "@/hooks/useStore";
 
 const LogInPage = () => {
-  const { setSessionData } = useSessionDataStore();
-  const { setLoggedIn } = useLoggedInStore();
-
   const router = useRouter();
 
+  const { setSessionData } = useSessionDataStore();
   const [logInInfo, setLogInInfo] = useState<LogInInfo>({
     email: "",
     password: ""
   });
-
+  
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setLogInInfo(prevState => ({
@@ -45,7 +43,6 @@ const LogInPage = () => {
 
       if (error) throw error;
       setSessionData(data);
-      setLoggedIn(true);
       router.push("/");
 
     } catch (error) {
@@ -69,7 +66,9 @@ const LogInPage = () => {
               className="w-full flex items-center justify-center gap-3 py-6 rounded-md text-light bg-neutral-800 transition hover:bg-neutral-700"
             >
               <BsGoogle />
-              <p className="text-sm pt-0.5">Continue with Google</p>
+              <p className="text-sm pt-0.5">
+                Continue with Google
+              </p>
             </Button>
           </section>
 
@@ -110,9 +109,9 @@ const LogInPage = () => {
             <p className="underline cursor-pointer w-fit transition hover:text-light">Forgot your password?</p>
             <p className="w-fit">
               Don&apos;t have an account? &nbsp;
-              <Link href="/login">
+              <Link href="/signup">
                 <span className="underline transition hover:text-light">Sign up</span>
-                </Link>
+              </Link>
             </p>
           </div>
         </CardContent>

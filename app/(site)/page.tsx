@@ -6,15 +6,13 @@ import { BsStarFill } from "react-icons/bs";
 // Local imports
 import Header from "@/components/Header";
 import FavSongs from "@/components/FavSongs";
-import { useLoggedInStore, useSessionDataStore } from "@/hooks/useStore";
+import { useSessionDataStore } from "@/hooks/useStore";
 
 const HomePage = () => {
   const { sessionData, setSessionData } = useSessionDataStore();
-  const { loggedIn, setLoggedIn } = useLoggedInStore();
 
   if (sessionData) {
     localStorage.setItem("sessionData", JSON.stringify(sessionData));
-    console.log(loggedIn)
   }
 
   useEffect(() => {
@@ -23,7 +21,6 @@ const HomePage = () => {
     if (localStorageData) {
       let data = JSON.parse(localStorageData);
       setSessionData(data);
-      setLoggedIn(true);
     }
   }, []);
 
@@ -31,7 +28,7 @@ const HomePage = () => {
     <main className="p-3 md:p-6">
       <Header>
         <div>
-          <h1 className="text-lightest text-3xl font-semibold md:text-4xl">
+          <h1 className="text-lightest text-2xl font-semibold md:text-3xl">
             {sessionData ? `Welcome back, ${sessionData.user.user_metadata.profile_name}!` : "Listen to the best music!"}
           </h1>
         </div>
@@ -46,7 +43,7 @@ const HomePage = () => {
 
       <section className="mt-8 mb-3">
         <div>
-          <h1 className="text-lightest text-2xl md:text-3xl">Newest Songs</h1>
+          <h1 className="text-lightest text-xl md:text-2xl">Newest Songs</h1>
         </div>
         <div>
           List of songs!

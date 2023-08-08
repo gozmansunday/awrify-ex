@@ -6,21 +6,10 @@ interface SessionDataState {
 }
 
 const useSessionDataStore = create<SessionDataState>()((set) => ({
-  sessionData: "",
+  sessionData: null,
   setSessionData: (data) => set(() => ({ sessionData: data })),
 }));
 
-interface LoggedInState {
-  loggedIn: boolean;
-  setLoggedIn: (loggedIn: boolean) => void;
-}
-
-const useLoggedInStore = create<LoggedInState>()((set) => ({
-  loggedIn: false,
-  setLoggedIn: (loggedIn) => set((state) => ({ loggedIn: loggedIn })),
-}))
-
 export {
   useSessionDataStore,
-  useLoggedInStore,
 };

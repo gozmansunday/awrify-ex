@@ -3,13 +3,13 @@
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { useRouter } from "next/navigation";
-import { BsChevronLeft, BsChevronRight, BsHouseFill, BsSearch } from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight, BsSearch } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
 import Link from "next/link";
 
 // Local imports
 import { Button } from "./ui/button";
-import { useLoggedInStore, useSessionDataStore } from "@/hooks/useStore";
+import { useSessionDataStore } from "@/hooks/useStore";
 import supabase from "@/config/supabaseClient";
 
 interface Props {
@@ -21,14 +21,14 @@ const Header = ({ children, className }: Props) => {
   const router = useRouter();
 
   const { sessionData, setSessionData } = useSessionDataStore();
-  const { loggedIn, setLoggedIn } = useLoggedInStore();
 
   const handleLogout = async () => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
       localStorage.removeItem("sessionData");
-      router.refresh();
+      setSessionData(null);
+      router.push("/login");
     } catch (error) {
       console.error(error);
     }
@@ -63,19 +63,19 @@ const Header = ({ children, className }: Props) => {
 
         {/* Sign up and Log in buttons */}
         <div className="flex items-center gap-2 md:gap-4">
-          {!loggedIn && <Link href="/signup">
+          {!sessionData && <Link href="/signup">
             <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-dark text-lightest hover:text-darkest hover:bg-brand md:text-base md:py-3 md:px-6">
               Sign up
             </Button>
           </Link>}
 
-          {!loggedIn && <Link href="/login">
+          {!sessionData && <Link href="/login">
             <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
               Log in
             </Button>
           </Link>}
 
-          {loggedIn && <Button onClick={handleLogout} className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
+          {sessionData && <Button onClick={handleLogout} className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
               Log out
           </Button>}
         </div>

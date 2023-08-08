@@ -1,6 +1,8 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { BsGoogle } from "react-icons/bs";
 
 // Local imports
@@ -9,8 +11,6 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import FormDivider from "@/components/FormDivider";
 import { SignUpInfo } from "@/interfaces/auth";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import supabase from "@/config/supabaseClient";
 
@@ -22,6 +22,7 @@ const SignUpPage = () => {
     email: "",
     password: ""
   });
+  const [ signedUp, setSignedUp ] = useState(false);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -34,21 +35,27 @@ const SignUpPage = () => {
   const handleSubmitForm = async (event: FormEvent) => {
     event.preventDefault();
 
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: signUpInfo.email,
-        password: signUpInfo.password,
-        options: {
-          data: {
-            profile_name: signUpInfo.name,
+    if (signedUp) {
+      router.push("/login");
+    } else {
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email: signUpInfo.email,
+          password: signUpInfo.password,
+          options: {
+            data: {
+              profile_name: signUpInfo.name,
+            },
+            emailRedirectTo: "https://awrify-test.vercel.app/login",
           },
-        },
-      });
-
-      console.log(data);
-      if (error) throw error;
-    } catch (error) {
-      console.error(error);
+        });
+  
+        if (error) throw error;
+        setSignedUp(true);
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -81,37 +88,41 @@ const SignUpPage = () => {
             className="flex flex-col gap-6 md:px-12"
           >
             {/* Name */}
-            <section className="space-y-1">
+            {!signedUp && <section className="space-y-1">
               <Label htmlFor="name" className="text-sm">What should we call you?</Label>
               <Input type="text" id="name" name="name" required
                 className="bg-inherit border-neutral-600 transition"
                 placeholder="Enter a profile name."
                 onChange={handleInputChange}
               />
-            </section>
+            </section>}
 
             {/* Email Address */}
-            <section className="space-y-1">
+            {!signedUp && <section className="space-y-1">
               <Label htmlFor="email" className="text-sm">What&apos;s your email address?</Label>
               <Input type="email" id="email" name="email" required
                 className="bg-inherit border-neutral-600 transition"
                 placeholder="Enter your email."
                 onChange={handleInputChange}
               />
-            </section>
+            </section>}
 
             {/* Password */}
-            <section className="space-y-1">
+            {!signedUp && <section className="space-y-1">
               <Label htmlFor="password" className="text-sm">Create a password</Label>
               <Input type="password" id="password" name="password" required
                 className="bg-inherit border-neutral-600 transition"
                 placeholder="Create a password."
                 onChange={handleInputChange}
               />
-            </section>
+            </section>}
+
+            {signedUp && <section className="text-center">
+              <p>Check your email for verification.</p>
+            </section>}
 
             <Button className="w-full py-6 mt-2 bg-brand text-darkest hover:bg-lightest">
-              Sign up
+              {signedUp ? "Go to log in" : "Sign up"}
             </Button>
           </form>
 
