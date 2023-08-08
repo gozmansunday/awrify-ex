@@ -1,7 +1,10 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { BsGoogle } from "react-icons/bs";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import supabase from "@/config/supabaseClient";
 
 // Local imports
 import { Button } from "@/components/ui/button";
@@ -9,12 +12,13 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import FormDivider from "@/components/FormDivider";
 import { LogInInfo } from "@/interfaces/auth";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { Label } from "@/components/ui/label";
-import supabase from "@/config/supabaseClient";
+import { useSessionDataStore, useLoggedInStore } from "@/hooks/useStore";
 
 const LogInPage = () => {
+  const { sessionData, setSessionData } = useSessionDataStore();
+  const { loggedIn, setLoggedIn } = useLoggedInStore();
+
   const router = useRouter();
 
   const [logInInfo, setLogInInfo] = useState<LogInInfo>({
@@ -39,8 +43,11 @@ const LogInPage = () => {
         password: logInInfo.password,
       });
 
-      console.log(data);
       if (error) throw error;
+      setSessionData(data);
+      setLoggedIn(true);
+      router.push("/");
+
     } catch (error) {
       console.error(error);
     }
@@ -101,9 +108,12 @@ const LogInPage = () => {
 
           <div className="flex flex-col items-center gap-2 text-center text-sm text-mid py-0  mt-8 shadow-none">
             <p className="underline cursor-pointer w-fit transition hover:text-light">Forgot your password?</p>
-            <Link href="/signup">
-              <p className="underline cursor-pointer w-fit transition hover:text-light">Don&apos;t have an account? Sign up</p>
-            </Link>
+            <p className="w-fit">
+              Don&apos;t have an account? &nbsp;
+              <Link href="/login">
+                <span className="underline transition hover:text-light">Sign up</span>
+                </Link>
+            </p>
           </div>
         </CardContent>
       </Card>

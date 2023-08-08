@@ -116,9 +116,12 @@ const SignUpPage = () => {
           </form>
 
           <div className="flex flex-col items-center gap-2 text-center text-sm text-mid py-0  mt-8 shadow-none">
-            <Link href="/login">
-              <p className="underline cursor-pointer w-fit transition hover:text-light">Already have an account? Log in</p>
-            </Link>
+            <p className="w-fit">
+              Already have an account? &nbsp;
+              <Link href="/login">
+                <span className="underline transition hover:text-light">Log in</span>
+                </Link>
+            </p>
           </div>
         </CardContent>
       </Card>
