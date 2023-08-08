@@ -27,6 +27,7 @@ const Header = ({ children, className }: Props) => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
+      localStorage.removeItem("sessionData");
       router.refresh();
     } catch (error) {
       console.error(error);
