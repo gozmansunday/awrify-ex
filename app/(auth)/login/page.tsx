@@ -56,6 +56,11 @@ const LogInPage = () => {
     }
   };
 
+  // Set error to false whenever the component mounts
+  useEffect(() => {
+    setError(false);
+  }, []);
+
   return (
     <main className="bg-darkest h-full md:py-8 md:bg-dark">
       <Card className="flex flex-col gap-6 max-w-2xl mx-auto py-6 bg-darkest text-lightest border-none shadow-none rounded-none md:rounded-xl">

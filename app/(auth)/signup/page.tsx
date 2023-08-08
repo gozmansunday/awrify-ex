@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BsGoogle } from "react-icons/bs";
@@ -13,7 +13,6 @@ import FormDivider from "@/components/FormDivider";
 import { SignUpInfo } from "@/interfaces/auth";
 import { Label } from "@/components/ui/label";
 import supabase from "@/config/supabaseClient";
-import { AuthError } from "@supabase/supabase-js";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -59,6 +58,11 @@ const SignUpPage = () => {
       }
     }
   };
+
+  // Set error to false whenever the component mounts
+  useEffect(() => {
+    setSignedUp(false);
+  }, []);
 
   return (
     <main className="bg-darkest h-full md:py-8 md:bg-dark">
