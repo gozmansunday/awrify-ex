@@ -23,6 +23,7 @@ const HomePage = () => {
     if (localStorageData) {
       let data = JSON.parse(localStorageData);
       setSessionData(data);
+      setLoggedIn(true);
     }
   }, []);
 

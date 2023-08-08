@@ -9,6 +9,8 @@ import Link from "next/link";
 
 // Local imports
 import { Button } from "./ui/button";
+import { useLoggedInStore, useSessionDataStore } from "@/hooks/useStore";
+import supabase from "@/config/supabaseClient";
 
 interface Props {
   children: ReactNode;
@@ -18,8 +20,16 @@ interface Props {
 const Header = ({ children, className }: Props) => {
   const router = useRouter();
 
-  const handleLogout = () => {
-    // Handle logout
+  const { sessionData, setSessionData } = useSessionDataStore();
+  const { loggedIn, setLoggedIn } = useLoggedInStore();
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -51,17 +61,21 @@ const Header = ({ children, className }: Props) => {
 
         {/* Sign up and Log in buttons */}
         <div className="flex items-center gap-2 md:gap-4">
-          <Link href="/signup">
+          {!loggedIn && <Link href="/signup">
             <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-dark text-lightest hover:text-darkest hover:bg-brand md:text-base md:py-3 md:px-6">
               Sign up
             </Button>
-          </Link>
+          </Link>}
 
-          <Link href="/login">
+          {!loggedIn && <Link href="/login">
             <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
               Log in
             </Button>
-          </Link>
+          </Link>}
+
+          {loggedIn && <Button onClick={handleLogout} className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
+              Log out
+          </Button>}
         </div>
       </div>
 

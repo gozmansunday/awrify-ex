@@ -16,8 +16,8 @@ import { Label } from "@/components/ui/label";
 import { useSessionDataStore, useLoggedInStore } from "@/hooks/useStore";
 
 const LogInPage = () => {
-  const { sessionData, setSessionData } = useSessionDataStore();
-  const { loggedIn, setLoggedIn } = useLoggedInStore();
+  const { setSessionData } = useSessionDataStore();
+  const { setLoggedIn } = useLoggedInStore();
 
   const router = useRouter();
 
