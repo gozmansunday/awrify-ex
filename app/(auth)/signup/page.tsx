@@ -13,6 +13,7 @@ import FormDivider from "@/components/FormDivider";
 import { SignUpInfo } from "@/interfaces/auth";
 import { Label } from "@/components/ui/label";
 import supabase from "@/config/supabaseClient";
+import { AuthError } from "@supabase/supabase-js";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const SignUpPage = () => {
     email: "",
     password: ""
   });
-  const [ signedUp, setSignedUp ] = useState(false);
+  const [signedUp, setSignedUp] = useState(false);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -92,6 +93,7 @@ const SignUpPage = () => {
               <Label htmlFor="name" className="text-sm">What should we call you?</Label>
               <Input type="text" id="name" name="name" required
                 className="bg-inherit border-neutral-600 transition"
+                minLength={3} maxLength={15}
                 placeholder="Enter a profile name."
                 onChange={handleInputChange}
               />
@@ -112,11 +114,13 @@ const SignUpPage = () => {
               <Label htmlFor="password" className="text-sm">Create a password</Label>
               <Input type="password" id="password" name="password" required
                 className="bg-inherit border-neutral-600 transition"
+                minLength={6}
                 placeholder="Create a password."
                 onChange={handleInputChange}
               />
             </section>}
 
+            {/* Email Verification */}
             {signedUp && <section className="text-center">
               <p>Check your email for verification.</p>
             </section>}

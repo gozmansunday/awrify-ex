@@ -23,6 +23,7 @@ const LogInPage = () => {
     email: "",
     password: ""
   });
+  const [error, setError] = useState(true);
   
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -30,6 +31,8 @@ const LogInPage = () => {
       ...prevState,
       [name]: value,
     }));
+
+    setError(false);
   };
 
   const handleSubmitForm = async (event: FormEvent) => {
@@ -41,7 +44,10 @@ const LogInPage = () => {
         password: logInInfo.password,
       });
 
-      if (error) throw error;
+      if (error) {
+        setError(true);
+        throw error;
+      }
       setSessionData(data);
       router.push("/");
 
@@ -87,6 +93,7 @@ const LogInPage = () => {
                 className="bg-inherit border-neutral-600 transition"
                 placeholder="example@email.com"
                 onChange={handleInputChange}
+                onFocus={() => setError(false)}
               />
             </section>
 
@@ -95,10 +102,17 @@ const LogInPage = () => {
               <Label htmlFor="password" className="text-sm">Password</Label>
               <Input type="password" id="password" name="password" required
                 className="bg-inherit border-neutral-600 transition"
+                minLength={6}
                 placeholder="password"
                 onChange={handleInputChange}
+                onFocus={() => setError(false)}
               />
             </section>
+
+            {/* Error Message */}
+            {error && <section className="text-red-400 text-sm -mt-4 text-center">
+              <p>Invalid login credentials!</p>
+            </section>}
 
             <Button className="w-full py-6 mt-2 bg-brand text-darkest hover:bg-lightest">
               Log in
