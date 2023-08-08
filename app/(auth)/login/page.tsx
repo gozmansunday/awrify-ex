@@ -12,6 +12,7 @@ import { LogInInfo } from "@/interfaces/auth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
+import supabase from "@/config/supabaseClient";
 
 const LogInPage = () => {
   const router = useRouter();
@@ -30,10 +31,20 @@ const LogInPage = () => {
   };
 
   const handleSubmitForm = async (event: FormEvent) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    console.log(logInInfo);
-  }
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: logInInfo.email,
+        password: logInInfo.password,
+      });
+
+      console.log(data);
+      if (error) throw error;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <main className="bg-darkest h-full md:py-8 md:bg-dark">
