@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 // Local imports
 import "./globals.css";
 import { clash, hubot, manrope, mona, neo, nohemi } from "@/lib/fontConfig";
+import ToasterProvider from "@/providers/ToasterProvider";
 
 export const metadata: Metadata = {
   title: "Awrify",
@@ -19,6 +20,7 @@ const RootLayout = ({ children }: Props) => {
   return (
     <html lang="en" className={`${fontVariables}`}>
       <body className="font-hubot bg-darkest min-h-[100dvh]">
+        <ToasterProvider />
         {children}
     </body>
     </html>

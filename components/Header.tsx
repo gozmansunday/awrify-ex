@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { BsChevronLeft, BsChevronRight, BsSearch, BsPersonFill } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
 
 // Local imports
 import { Button } from "./ui/button";
@@ -23,14 +24,16 @@ const Header = ({ children, className }: Props) => {
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
-
-    if (error) {
-      console.error(error);
-    }
-
+    
     setUserData(null);
     localStorage.removeItem("userData");
     router.push("/login");
+    
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Logged out!");
+    }
   };
 
   return (
