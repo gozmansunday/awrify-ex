@@ -30,6 +30,7 @@ const Header = ({ children, className }: Props) => {
 
     setUserData(null);
     localStorage.removeItem("userData");
+    router.push("/login");
   };
 
   return (
@@ -61,18 +62,21 @@ const Header = ({ children, className }: Props) => {
 
         {/* Log in, Logout and profile buttons */}
         <div className="flex items-center gap-2 md:gap-4">
+          {/* Logout */}
           {userData && <Button onClick={handleLogout}
             className="text-sm rounded-full py-2 px-4 shadow-none bg-dark text-lightest hover:text-darkest hover:bg-brand md:text-base md:py-3 md:px-6"
           >
             Logout
           </Button>}
 
-          {userData && <Link href="/signup">
+          {/* Account */}
+          {userData && <Link href="/account">
             <Button size="icon" className="rounded-full shadow-none text-darkest bg-brand transition hover:bg-lightest">
               <BsPersonFill className="text-2xl" />
             </Button>
           </Link>}
 
+          {/* Log in */}
           {!userData && <Link href="/login">
             <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
               Log in

@@ -7,7 +7,7 @@ import supabase from "@/config/supabaseClient";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-const LogInPage = () => {
+const LoginPage = () => {
   const handleGoogleLogin = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithOAuth({
@@ -69,4 +69,4 @@ const LogInPage = () => {
   );
 };
 
-export default LogInPage;
+export default LoginPage;
