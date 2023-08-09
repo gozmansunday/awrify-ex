@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { BsGoogle } from "react-icons/bs";
+import { BsGithub, BsGoogle } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import supabase from "@/config/supabaseClient";
@@ -50,10 +50,30 @@ const LogInPage = () => {
       }
       setSessionData(data);
       router.push("/");
+      
 
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const logInWithGoogle = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+      });
+
+      if (error) throw error;
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+
+
+  };
+
+  const logOutWithGoogle = async () => {
+    const { error } = await supabase.auth.signOut();
   };
 
   // Set error to false whenever the component mounts
@@ -71,16 +91,26 @@ const LogInPage = () => {
         </CardHeader>
 
         <CardContent>
-          <section className="md:px-12">
-            <Button
-              // onClick={}
-              className="w-full flex items-center justify-center gap-3 py-6 rounded-md text-light bg-neutral-800 transition hover:bg-neutral-700"
-            >
-              <BsGoogle />
-              <p className="text-sm pt-0.5">
-                Continue with Google
-              </p>
-            </Button>
+          <section className="flex flex-col gap-6 md:px-12">
+            <section>
+              <Button
+                onClick={logInWithGoogle}
+                className="w-full flex items-center justify-center gap-3 py-6 rounded-md text-light bg-neutral-800 transition hover:bg-neutral-700"
+              >
+                <BsGoogle />
+                <p className="text-sm pt-0.5">Continue with Google</p>
+              </Button>
+            </section>
+
+            <section>
+              <Button
+                // onClick={}
+                className="w-full flex items-center justify-center gap-3 py-6 rounded-md text-light bg-neutral-800 transition hover:bg-neutral-700"
+              >
+                <BsGithub />
+                <p className="text-sm pt-0.5">Continue with Github</p>
+              </Button>
+            </section>
           </section>
 
           <div className="my-12 md:px-12">

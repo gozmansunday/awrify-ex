@@ -31,7 +31,7 @@ const Wrapper = ({ children }: Props) => {
       active: pathname === '/search',
       href: '/search'
     }
-  ], [])
+  ], []);
 
   return (
     <div className="grid min-h-[100dvh] md:grid-cols-[18rem_1fr] lg:grid-cols-[20rem_1fr]">

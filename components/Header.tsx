@@ -26,6 +26,7 @@ const Header = ({ children, className }: Props) => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
+      // TODO: Reset any playing songs
       localStorage.removeItem("sessionData");
       setSessionData(null);
       router.push("/login");

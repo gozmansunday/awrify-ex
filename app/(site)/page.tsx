@@ -7,6 +7,7 @@ import { BsStarFill } from "react-icons/bs";
 import Header from "@/components/Header";
 import FavSongs from "@/components/FavSongs";
 import { useSessionDataStore } from "@/hooks/useStore";
+import supabase from "@/config/supabaseClient";
 
 const HomePage = () => {
   const { sessionData, setSessionData } = useSessionDataStore();
@@ -16,6 +17,18 @@ const HomePage = () => {
   }
 
   useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (user) {
+        console.log(user);
+      }
+
+      return user;
+    };
+
+    getUser();
+
     let localStorageData = localStorage.getItem("sessionData");
 
     if (localStorageData) {
@@ -24,11 +37,19 @@ const HomePage = () => {
     }
   }, []);
 
+  const getUser = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (user) {
+      console.log(user);
+    }
+  };
+
   return (
     <main className="p-3 md:p-6">
       <Header>
         <div>
-          <h1 className="text-lightest text-2xl font-semibold md:text-3xl">
+          <h1 onClick={getUser} className="text-lightest text-2xl font-semibold md:text-3xl">
             {sessionData ? `Welcome back, ${sessionData.user.user_metadata.profile_name}!` : "Listen to the best music!"}
           </h1>
         </div>
