@@ -10,7 +10,7 @@ interface Props {
   href: string;
 }
 
-const ListItem = ({ icon: Icon, name, href }: Props) => {
+const FavSongs = ({ icon: Icon, name, href }: Props) => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -36,4 +36,4 @@ const ListItem = ({ icon: Icon, name, href }: Props) => {
   );
 };
 
-export default ListItem;
+export default FavSongs;

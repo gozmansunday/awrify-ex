@@ -1,14 +1,10 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
-import "./globals.css";
 
-// Components
+// Local imports
+import "./globals.css";
 import { clash, hubot, manrope, mona, neo, nohemi } from "@/lib/fontConfig";
-import Wrapper from "@/components/Wrapper";
-import SupabaseProvider from "@/providers/SupabaseProvider";
-import { MyUserContextProvider } from "@/hooks/useUser";
-import UserProvider from "@/providers/UserProvider";
-import ModalProvider from "@/providers/ModalProvider";
+import ToasterProvider from "@/providers/ToasterProvider";
 
 export const metadata: Metadata = {
   title: "Awrify",
@@ -23,16 +19,10 @@ const RootLayout = ({ children }: Props) => {
 
   return (
     <html lang="en" className={`${fontVariables}`}>
-      <body className="font-hubot bg-darkest">
-        <SupabaseProvider>
-          <UserProvider>
-            <ModalProvider />
-            <Wrapper>
-              {children}
-            </Wrapper>
-          </UserProvider>
-        </SupabaseProvider>
-      </body>
+      <body className="font-hubot bg-darkest min-h-[100dvh]">
+        <ToasterProvider />
+        {children}
+    </body>
     </html>
   )
 }

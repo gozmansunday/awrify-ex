@@ -3,12 +3,15 @@
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { useRouter } from "next/navigation";
-import { BsChevronLeft, BsChevronRight, BsHouseFill, BsSearch } from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight, BsSearch, BsPersonFill } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
+import Link from "next/link";
+import { toast } from "react-hot-toast";
 
-// Components
+// Local imports
 import { Button } from "./ui/button";
-import AuthModal from "./AuthModal";
+import { useUserDataStore } from "@/hooks/useStore";
+import supabase from "@/config/supabaseClient";
 
 interface Props {
   children: ReactNode;
@@ -17,9 +20,20 @@ interface Props {
 
 const Header = ({ children, className }: Props) => {
   const router = useRouter();
+  const { userData, setUserData } = useUserDataStore();
 
-  const handleLogout = () => {
-    // Hnadle logout
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    
+    setUserData(null);
+    localStorage.removeItem("userData");
+    router.push("/login");
+    
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Logged out!");
+    }
   };
 
   return (
@@ -49,19 +63,28 @@ const Header = ({ children, className }: Props) => {
           </Button>
         </div>
 
-        {/* Sign up and Log in buttons */}
+        {/* Log in, Logout and profile buttons */}
         <div className="flex items-center gap-2 md:gap-4">
-          {/* <Button className="text-sm text-lightest bg-transparent shadow-none hover:text-mid hover:bg-transparent md:text-base">
-            Sign up
-          </Button> */}
-          <AuthModal
-            content="Sign up"
-            className="bg-transparent text-lightest hover:text-mid hover:bg-transparent px-0 py-1 md:px-0 md:py-1"
-          />
-          <AuthModal
-            content="Log in"
-            className="bg-brand text-darkest hover:bg-light"
-          />
+          {/* Logout */}
+          {userData && <Button onClick={handleLogout}
+            className="text-sm rounded-full py-2 px-4 shadow-none bg-dark text-lightest hover:text-darkest hover:bg-brand md:text-base md:py-3 md:px-6"
+          >
+            Logout
+          </Button>}
+
+          {/* Account */}
+          {userData && <Link href="/account">
+            <Button size="icon" className="rounded-full shadow-none text-darkest bg-brand transition hover:bg-lightest">
+              <BsPersonFill className="text-2xl" />
+            </Button>
+          </Link>}
+
+          {/* Log in */}
+          {!userData && <Link href="/login">
+            <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
+              Log in
+            </Button>
+          </Link>}
         </div>
       </div>
 

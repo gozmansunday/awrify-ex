@@ -6,7 +6,7 @@ import { BsHouseFill, BsSearch } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
 import { GiRingedPlanet } from "react-icons/gi";
 
-// Components
+// Local imports
 import Box from "./Box";
 import SidebarItem from "./SidebarItem";
 import Library from "./Library";
@@ -31,10 +31,10 @@ const Wrapper = ({ children }: Props) => {
       active: pathname === '/search',
       href: '/search'
     }
-  ], [])
+  ], []);
 
   return (
-    <div className="grid h-full md:grid-cols-[18rem_1fr] lg:grid-cols-[20rem_1fr]">
+    <div className="grid min-h-[100dvh] md:grid-cols-[18rem_1fr] lg:grid-cols-[20rem_1fr]">
       {/* Sidebar */}
       <aside className="hidden flex-col gap-8 p-6 bg-dark md:flex">
         <section className="flex items-center gap-3">

@@ -6,6 +6,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -17,10 +18,9 @@ interface Props {
   buttonContent: string;
   buttonClassName: string;
   modalTitle: string;
-  modalDescription: string;
 };
 
-const Modal = ({ children, buttonContent, buttonClassName, modalTitle, modalDescription }: Props) => {
+const Modal = ({ children, buttonContent, buttonClassName, modalTitle }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -34,14 +34,10 @@ const Modal = ({ children, buttonContent, buttonClassName, modalTitle, modalDesc
       </DialogTrigger>
 
       <DialogContent
-        // onChange={onChange}
-        className="flex flex-col w-screen h-[100dvh] bg-dark border-none md:rounded-3xl shadow-none md:w-full md:h-auto"
+        className="flex flex-col gap-8 w-screen h-[100dvh] bg-dark border-none md:rounded-3xl shadow-none md:w-full md:h-auto"
       >
         <DialogHeader>
-          <DialogTitle className="text-center text-xl text-lightest">{modalTitle}</DialogTitle>
-          <DialogDescription className="text-center text-mid">
-            {modalDescription}
-          </DialogDescription>
+          <DialogTitle className="text-center text-2xl text-lightest md:text-3xl">{modalTitle}</DialogTitle>
         </DialogHeader>
 
         {children}

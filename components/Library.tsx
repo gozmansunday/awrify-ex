@@ -2,7 +2,7 @@
 
 import { BsMusicNoteList, BsPlusLg } from "react-icons/bs";
 
-// Components
+// Local imports
 import Box from "./Box";
 import { Button } from "./ui/button";
 
