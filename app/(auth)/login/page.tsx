@@ -1,85 +1,36 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { BsGithub, BsGoogle } from "react-icons/bs";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import supabase from "@/config/supabaseClient";
 
 // Local imports
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import FormDivider from "@/components/FormDivider";
-import { LogInInfo } from "@/interfaces/auth";
-import { Label } from "@/components/ui/label";
-import { useSessionDataStore } from "@/hooks/useStore";
 
 const LogInPage = () => {
-  const router = useRouter();
-
-  const { setSessionData } = useSessionDataStore();
-  const [logInInfo, setLogInInfo] = useState<LogInInfo>({
-    email: "",
-    password: ""
-  });
-  const [error, setError] = useState(true);
-  
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setLogInInfo(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-
-    setError(false);
-  };
-
-  const handleSubmitForm = async (event: FormEvent) => {
-    event.preventDefault();
-
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: logInInfo.email,
-        password: logInInfo.password,
-      });
-
-      if (error) {
-        setError(true);
-        throw error;
-      }
-      setSessionData(data);
-      router.push("/");
-      
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const logInWithGoogle = async () => {
+  const handleGoogleLogin = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
       });
 
       if (error) throw error;
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
-
-
   };
 
-  const logOutWithGoogle = async () => {
-    const { error } = await supabase.auth.signOut();
-  };
+  const handleGithubLogin = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "github",
+      });
 
-  // Set error to false whenever the component mounts
-  useEffect(() => {
-    setError(false);
-  }, []);
+      if (error) throw error;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <main className="bg-darkest h-full md:py-8 md:bg-dark">
@@ -94,8 +45,8 @@ const LogInPage = () => {
           <section className="flex flex-col gap-6 md:px-12">
             <section>
               <Button
-                onClick={logInWithGoogle}
-                className="w-full flex items-center justify-center gap-3 py-6 rounded-md text-light bg-neutral-800 transition hover:bg-neutral-700"
+                onClick={handleGoogleLogin}
+                className="w-full flex items-center justify-center gap-3 py-6 rounded-md text-light bg-neutral-800 transition hover:bg-brand hover:text-darkest"
               >
                 <BsGoogle />
                 <p className="text-sm pt-0.5">Continue with Google</p>
@@ -104,65 +55,14 @@ const LogInPage = () => {
 
             <section>
               <Button
-                // onClick={}
-                className="w-full flex items-center justify-center gap-3 py-6 rounded-md text-light bg-neutral-800 transition hover:bg-neutral-700"
+                onClick={handleGithubLogin}
+                className="w-full flex items-center justify-center gap-3 py-6 rounded-md text-light bg-neutral-800 transition hover:bg-brand hover:text-darkest"
               >
                 <BsGithub />
                 <p className="text-sm pt-0.5">Continue with Github</p>
               </Button>
             </section>
           </section>
-
-          <div className="my-12 md:px-12">
-            <FormDivider />
-          </div>
-
-          <form
-            onSubmit={handleSubmitForm}
-            className="flex flex-col gap-6 md:px-12"
-          >
-            {/* Email */}
-            <section className="space-y-1">
-              <Label htmlFor="email" className="text-sm">Email</Label>
-              <Input type="email" id="email" name="email" required
-                className="bg-inherit border-neutral-600 transition"
-                placeholder="example@email.com"
-                onChange={handleInputChange}
-                onFocus={() => setError(false)}
-              />
-            </section>
-
-            {/* Password */}
-            <section className="space-y-1">
-              <Label htmlFor="password" className="text-sm">Password</Label>
-              <Input type="password" id="password" name="password" required
-                className="bg-inherit border-neutral-600 transition"
-                minLength={6}
-                placeholder="password"
-                onChange={handleInputChange}
-                onFocus={() => setError(false)}
-              />
-            </section>
-
-            {/* Error Message */}
-            {error && <section className="text-red-400 text-sm -mt-4 text-center">
-              <p>Invalid login credentials!</p>
-            </section>}
-
-            <Button className="w-full py-6 mt-2 bg-brand text-darkest hover:bg-lightest">
-              Log in
-            </Button>
-          </form>
-
-          <div className="flex flex-col items-center gap-2 text-center text-sm text-mid py-0  mt-8 shadow-none">
-            <p className="underline cursor-pointer w-fit transition hover:text-light">Forgot your password?</p>
-            <p className="w-fit">
-              Don&apos;t have an account? &nbsp;
-              <Link href="/signup">
-                <span className="underline transition hover:text-light">Sign up</span>
-              </Link>
-            </p>
-          </div>
         </CardContent>
       </Card>
     </main>

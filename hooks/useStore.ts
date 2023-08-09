@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
-interface SessionDataState {
-  sessionData: any;
-  setSessionData: (data: any) => void;
+interface UserDataState {
+  userData: any;
+  setUserData: (data: any) => void;
 }
 
-const useSessionDataStore = create<SessionDataState>()((set) => ({
-  sessionData: null,
-  setSessionData: (data) => set(() => ({ sessionData: data })),
+const useUserDataStore = create<UserDataState>()((set) => ({
+  userData: null,
+  setUserData: (data) => set(() => ({ userData: data })),
 }));
 
 export {
-  useSessionDataStore,
+  useUserDataStore,
 };

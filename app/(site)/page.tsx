@@ -6,51 +6,43 @@ import { BsStarFill } from "react-icons/bs";
 // Local imports
 import Header from "@/components/Header";
 import FavSongs from "@/components/FavSongs";
-import { useSessionDataStore } from "@/hooks/useStore";
+import { useUserDataStore } from "@/hooks/useStore";
 import supabase from "@/config/supabaseClient";
 
 const HomePage = () => {
-  const { sessionData, setSessionData } = useSessionDataStore();
+  const { userData, setUserData } = useUserDataStore();
 
-  if (sessionData) {
-    localStorage.setItem("sessionData", JSON.stringify(sessionData));
-  }
+  // Function to fetch user data from Supabase and update state and localStorage
+  const fetchUserData = async () => {
+    try {
+      const { data: user } = await supabase.auth.getUser();
+
+      if (user.user) { // user.user is used because when the user is logged out, user returns {"user":null}
+        setUserData(user);
+        localStorage.setItem("userData", JSON.stringify(user)); // Store user data in localStorage
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-
-      if (user) {
-        console.log(user);
-      }
-
-      return user;
-    };
-
-    getUser();
-
-    let localStorageData = localStorage.getItem("sessionData");
-
-    if (localStorageData) {
-      let data = JSON.parse(localStorageData);
-      setSessionData(data);
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    } else {
+      fetchUserData();
     }
   }, []);
 
-  const getUser = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (user) {
-      console.log(user);
-    }
-  };
+  console.log(userData); //! DELETE
 
   return (
     <main className="p-3 md:p-6">
       <Header>
         <div>
-          <h1 onClick={getUser} className="text-lightest text-2xl font-semibold md:text-3xl">
-            {sessionData ? `Welcome back, ${sessionData.user.user_metadata.profile_name}!` : "Listen to the best music!"}
+          <h1 className="text-lightest text-2xl font-semibold md:text-3xl">
+            {userData ? `Welcome back, ${userData.user.user_metadata.name.split(" ")[0]}!` : "Listen to the best music!"}
           </h1>
         </div>
         <div className="grid mt-5 lg:grid-cols-2 md:mt-8">

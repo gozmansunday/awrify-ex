@@ -3,13 +3,13 @@
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { useRouter } from "next/navigation";
-import { BsChevronLeft, BsChevronRight, BsSearch } from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight, BsSearch, BsPersonFill } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
 import Link from "next/link";
 
 // Local imports
 import { Button } from "./ui/button";
-import { useSessionDataStore } from "@/hooks/useStore";
+import { useUserDataStore } from "@/hooks/useStore";
 import supabase from "@/config/supabaseClient";
 
 interface Props {
@@ -19,20 +19,17 @@ interface Props {
 
 const Header = ({ children, className }: Props) => {
   const router = useRouter();
-
-  const { sessionData, setSessionData } = useSessionDataStore();
+  const { userData, setUserData } = useUserDataStore();
 
   const handleLogout = async () => {
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      // TODO: Reset any playing songs
-      localStorage.removeItem("sessionData");
-      setSessionData(null);
-      router.push("/login");
-    } catch (error) {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
       console.error(error);
     }
+
+    setUserData(null);
+    localStorage.removeItem("userData");
   };
 
   return (
@@ -62,23 +59,25 @@ const Header = ({ children, className }: Props) => {
           </Button>
         </div>
 
-        {/* Sign up and Log in buttons */}
+        {/* Log in, Logout and profile buttons */}
         <div className="flex items-center gap-2 md:gap-4">
-          {!sessionData && <Link href="/signup">
-            <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-dark text-lightest hover:text-darkest hover:bg-brand md:text-base md:py-3 md:px-6">
-              Sign up
+          {userData && <Button onClick={handleLogout}
+            className="text-sm rounded-full py-2 px-4 shadow-none bg-dark text-lightest hover:text-darkest hover:bg-brand md:text-base md:py-3 md:px-6"
+          >
+            Logout
+          </Button>}
+
+          {userData && <Link href="/signup">
+            <Button size="icon" className="rounded-full shadow-none text-darkest bg-brand transition hover:bg-lightest">
+              <BsPersonFill className="text-2xl" />
             </Button>
           </Link>}
 
-          {!sessionData && <Link href="/login">
+          {!userData && <Link href="/login">
             <Button className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
               Log in
             </Button>
           </Link>}
-
-          {sessionData && <Button onClick={handleLogout} className="text-sm rounded-full py-2 px-4 shadow-none bg-brand text-darkest hover:bg-light md:text-base md:py-3 md:px-6">
-              Log out
-          </Button>}
         </div>
       </div>
 
