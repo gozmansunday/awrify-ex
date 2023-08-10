@@ -6,12 +6,13 @@ import { useRouter } from "next/navigation";
 import { BsChevronLeft, BsChevronRight, BsSearch, BsPersonFill } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
 import Link from "next/link";
-import { toast } from "react-hot-toast";
 
 // Local imports
 import { Button } from "./ui/button";
 import { useUserDataStore } from "@/hooks/useStore";
 import supabase from "@/config/supabaseClient";
+import { ToastAction } from "./ui/toast";
+import { useToast } from "./ui/use-toast";
 
 interface Props {
   children: ReactNode;
@@ -20,6 +21,7 @@ interface Props {
 
 const Header = ({ children, className }: Props) => {
   const router = useRouter();
+  const { toast } = useToast();
   const { userData, setUserData } = useUserDataStore();
 
   const handleLogout = async () => {
@@ -30,9 +32,18 @@ const Header = ({ children, className }: Props) => {
     router.push("/login");
     
     if (error) {
-      toast.error(error.message);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        action: <ToastAction altText="Try Again">Try Again</ToastAction>
+      });
     } else {
-      toast.success("Logged out!");
+      toast({
+        title: "See you soon!",
+        description: "You've successfully logged out.",
+        action: <ToastAction altText="Close">Close</ToastAction>
+      });
     }
   };
 
