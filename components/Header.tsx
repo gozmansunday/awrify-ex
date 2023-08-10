@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { useRouter } from "next/navigation";
-import { BsChevronLeft, BsChevronRight, BsSearch, BsPersonFill } from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight, BsSearch, BsPersonFill, BsPlusLg } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
 import Link from "next/link";
 
@@ -47,6 +47,14 @@ const Header = ({ children, className }: Props) => {
     }
   };
 
+  const handleUpload = () => {
+    if (!userData) {
+      router.push("/login");
+    } else {
+      router.push("/upload");
+    }
+  };
+
   return (
     <header className={twMerge(``, className)}>
       <div className="flex items-center justify-between pb-6 md:pb-8">
@@ -71,6 +79,9 @@ const Header = ({ children, className }: Props) => {
           </Button>
           <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-dark text-lightest">
             <BsSearch className="text-2xl" />
+          </Button>
+          <Button onClick={handleUpload} size="icon" className="rounded-full shadow-none h-10 w-10 bg-dark text-lightest">
+            <BsPlusLg className="text-2xl" />
           </Button>
         </div>
 
