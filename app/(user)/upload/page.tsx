@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -30,12 +30,12 @@ const UploadSongPage = () => {
     }
   });
 
-  const handleChange = (open: boolean) => {
-    if (!open) {
-      reset();
-      router.push("/");
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
     }
-  };
+  }, []);
 
   const handleSongSubmit: SubmitHandler<FieldValues> = async (values) => {
     try {
@@ -43,6 +43,17 @@ const UploadSongPage = () => {
 
       const songFile = values.song?.[0];
       const imageFile = values.image?.[0];
+
+      console.log(userData);
+
+      if (imageFile) {
+        console.log("image!");
+      }
+
+      if (songFile) {
+        console.log("song!");
+      }
+
 
       if (!songFile || !imageFile || !userData) {
         toast({
@@ -100,7 +111,7 @@ const UploadSongPage = () => {
         .insert({
           user_id: userData.user.id,
           title: values.title,
-          author: values.title,
+          author: values.author,
           image_path: imageData.path,
           song_path: songData.path,
         });
@@ -163,7 +174,7 @@ const UploadSongPage = () => {
           <Input
             id="author" type="file"
             disabled={isLoading} accept=".mp3"
-            {...register("author", { required: true })}
+            {...register("song", { required: true })}
             className="bg-inherit border-neutral-600 px-4 py-2.5 h-[42.42px] focus-visible:ring-neutral-600"
           />
         </section>
