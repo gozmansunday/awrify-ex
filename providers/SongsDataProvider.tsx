@@ -4,7 +4,8 @@ import { ReactNode, useEffect } from "react";
 
 // Local imports
 import supabase from "@/config/supabaseClient";
-import { useSongsStore } from "@/hooks/useStore";
+import { useSongsStore, useUserDataStore } from "@/hooks/useStore";
+import UserDataProvider from "./UserDataProvider";
 
 interface Props {
   children: ReactNode;
@@ -12,11 +13,15 @@ interface Props {
 
 const SongsDataProvider = ({ children }: Props) => {
   const { setSongs } = useSongsStore();
+  const { userData } = useUserDataStore();
 
   const getSongs = async () => {
+    if (!userData) return;
+
     const { data, error } = await supabase
       .from("songs")
       .select("*")
+      .eq("user_id", userData.user.id)
       .order("created_at", { ascending: false });
     
     if (error) {
@@ -28,7 +33,7 @@ const SongsDataProvider = ({ children }: Props) => {
 
   useEffect(() => {
     getSongs();
-  }, []);
+  }, [userData]);
 
   return (
     <div>

@@ -11,7 +11,7 @@ interface Props {
 }
 
 const UserDataProvider = ({ children }: Props) => {
-  const { setUserData } = useUserDataStore();
+  const { userData, setUserData } = useUserDataStore();
 
   // Function to fetch user data from Supabase and update state and localStorage
   const fetchUserData = async () => {
