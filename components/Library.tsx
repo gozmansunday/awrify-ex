@@ -6,11 +6,12 @@ import { BsMusicNoteList, BsPlusLg } from "react-icons/bs";
 import Box from "./Box";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
-import { useUserDataStore } from "@/hooks/useStore";
+import { useUserDataStore, useUserSongsStore } from "@/hooks/useStore";
 
 const Library = () => {
   const router = useRouter();
   const { userData } = useUserDataStore();
+  const { userSongs } = useUserSongsStore();
 
   const handleUpload = () => {
     if (!userData) {
@@ -34,7 +35,11 @@ const Library = () => {
       </div>
 
       <Box>
-        List of songs!
+        {userSongs.map((song) => (
+          <div key={song.id}>
+            {song.title}
+          </div>
+        ))}
       </Box>
     </section>
   )
