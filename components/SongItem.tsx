@@ -27,8 +27,8 @@ const SongItem = ({ song, onClick }: Props) => {
       </div>
       
       <div className="-space-y-0.5">
-        <h3 className="text-sm">{song.title}</h3>
-        <h4 className="text-xs text-mid">{song.author}</h4>
+        <p className="truncate text-sm">{song.title}</p>
+        <p className="truncate text-xs text-mid">{song.author}</p>
       </div>
 
     </div>

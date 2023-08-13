@@ -7,6 +7,7 @@ import Box from "./Box";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { useUserDataStore, useUserSongsStore } from "@/hooks/useStore";
+import MediaItem from "./MediaItem";
 
 const Library = () => {
   const router = useRouter();
@@ -36,9 +37,11 @@ const Library = () => {
 
       <Box>
         {userSongs.map((song) => (
-          <div key={song.id}>
-            {song.title}
-          </div>
+          <MediaItem
+            key={song.title}
+            onClick={() => { }}
+            song={song}
+          />
         ))}
       </Box>
     </section>
