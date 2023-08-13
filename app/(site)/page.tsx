@@ -1,41 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
 import { BsStarFill } from "react-icons/bs";
 
 // Local imports
 import Header from "@/components/Header";
 import FavSongs from "@/components/FavSongs";
-import { useUserDataStore } from "@/hooks/useStore";
-import supabase from "@/config/supabaseClient";
+import { useUserDataStore, useSongsStore } from "@/hooks/useStore";
+import MainPageContent from "@/components/MainPageContent";
+
+export const revalidate = 0;
 
 const HomePage = () => {
-  const { userData, setUserData } = useUserDataStore();
-
-  // Function to fetch user data from Supabase and update state and localStorage
-  const fetchUserData = async () => {
-    try {
-      const { data: user } = await supabase.auth.getUser();
-
-      if (user.user) { // user.user is used because when the user is logged out, user returns {"user":null}
-        setUserData(user);
-        localStorage.setItem("userData", JSON.stringify(user)); // Store user data in localStorage
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
-    } else {
-      fetchUserData();
-    }
-  }, []);
-
-  console.log(userData); //! DELETE
+  const { userData } = useUserDataStore();
+  const { songs } = useSongsStore();
 
   return (
     <main className="p-3 md:p-6">
@@ -58,9 +35,8 @@ const HomePage = () => {
         <div>
           <h1 className="text-lightest text-xl md:text-2xl">Newest Songs</h1>
         </div>
-        <div>
-          List of songs!
-        </div>
+        
+        <MainPageContent songs={songs} />
       </section>
     </main>
   )
