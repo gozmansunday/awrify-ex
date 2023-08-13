@@ -4,7 +4,7 @@ import { ReactNode, useEffect } from "react";
 
 // Local imports
 import supabase from "@/config/supabaseClient";
-import { useSongsStore, useUserDataStore } from "@/hooks/useStore";
+import { useAllSongsStore, useUserDataStore, useUserSongsStore } from "@/hooks/useStore";
 import UserDataProvider from "./UserDataProvider";
 
 interface Props {
@@ -12,10 +12,26 @@ interface Props {
 }
 
 const SongsDataProvider = ({ children }: Props) => {
-  const { setSongs } = useSongsStore();
+  const { setAllSongs } = useAllSongsStore();
+  const { setUserSongs } = useUserSongsStore();
   const { userData } = useUserDataStore();
 
-  const getSongs = async () => {
+  // Get all songs in database
+  const getAllSongs = async () => {
+    const { data, error } = await supabase
+      .from("songs")
+      .select("*")
+      .order("created_at", { ascending: false });
+    
+    if (error) {
+      console.error(error);
+    }
+
+    setAllSongs(data as any);
+  };
+
+  // Get songs created by user
+  const getUserSongs = async () => {
     if (!userData) return;
 
     const { data, error } = await supabase
@@ -28,11 +44,12 @@ const SongsDataProvider = ({ children }: Props) => {
       console.error(error);
     }
 
-    setSongs(data as any);
+    setUserSongs(data as any);
   };
 
   useEffect(() => {
-    getSongs();
+    getAllSongs();
+    getUserSongs();
   }, [userData]);
 
   return (

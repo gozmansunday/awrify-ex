@@ -9,7 +9,7 @@ import Link from "next/link";
 
 // Local imports
 import { Button } from "./ui/button";
-import { useUserDataStore, useSongsStore } from "@/hooks/useStore";
+import { useUserDataStore, useUserSongsStore } from "@/hooks/useStore";
 import supabase from "@/config/supabaseClient";
 import { ToastAction } from "./ui/toast";
 import { useToast } from "./ui/use-toast";
@@ -23,13 +23,13 @@ const Header = ({ children, className }: Props) => {
   const router = useRouter();
   const { toast } = useToast();
   const { userData, setUserData } = useUserDataStore();
-  const { setSongs } = useSongsStore();
+  const { setUserSongs } = useUserSongsStore();
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     
     setUserData(null);
-    setSongs([]);
+    setUserSongs([]);
     localStorage.removeItem("userData");
     router.push("/login");
     

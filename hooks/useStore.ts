@@ -11,17 +11,28 @@ const useUserDataStore = create<UserDataState>()((set) => ({
   setUserData: (data) => set(() => ({ userData: data })),
 }));
 
-interface SongsState {
-  songs: Song[];
-  setSongs: (songsData: Song[]) => void;
+interface AllSongsState {
+  allSongs: Song[];
+  setAllSongs: (allSongsData: Song[]) => void;
 }
 
-const useSongsStore = create<SongsState>()((set) => ({
-  songs: [],
-  setSongs: (songsData) => set(() => ({ songs: songsData })),
+const useAllSongsStore = create<AllSongsState>()((set) => ({
+  allSongs: [],
+  setAllSongs: (allSongsData) => set(() => ({ allSongs: allSongsData })),
+}));
+
+interface UserSongsState {
+  userSongs: Song[];
+  setUserSongs: (userSongsData: Song[]) => void;
+}
+
+const useUserSongsStore = create<UserSongsState>()((set) => ({
+  userSongs: [],
+  setUserSongs: (userSongsData) => set(() => ({ userSongs: userSongsData })),
 }));
 
 export {
   useUserDataStore,
-  useSongsStore,
+  useAllSongsStore,
+  useUserSongsStore,
 };

@@ -5,14 +5,14 @@ import { BsStarFill } from "react-icons/bs";
 // Local imports
 import Header from "@/components/Header";
 import FavSongs from "@/components/FavSongs";
-import { useUserDataStore, useSongsStore } from "@/hooks/useStore";
+import { useUserDataStore, useAllSongsStore } from "@/hooks/useStore";
 import MainPageContent from "@/components/MainPageContent";
 
 export const revalidate = 0;
 
 const HomePage = () => {
   const { userData } = useUserDataStore();
-  const { songs } = useSongsStore();
+  const { allSongs } = useAllSongsStore();
 
   return (
     <main className="p-3 md:p-6">
@@ -36,7 +36,7 @@ const HomePage = () => {
           <h1 className="text-lightest text-xl md:text-2xl">Newest Songs</h1>
         </div>
         
-        <MainPageContent songs={songs} />
+        <MainPageContent songs={allSongs} />
       </section>
     </main>
   )
