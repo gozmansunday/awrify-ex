@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,7 +17,7 @@ import supabase from "@/config/supabaseClient";
 
 const UploadSongPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { userData, setUserData } = useUserDataStore();
+  const { userData } = useUserDataStore();
 
   const router = useRouter();
   const { toast } = useToast();
@@ -29,13 +29,6 @@ const UploadSongPage = () => {
       image: null
     }
   });
-
-  useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
-    }
-  }, []);
 
   const handleSongSubmit: SubmitHandler<FieldValues> = async (values) => {
     try {
@@ -190,7 +183,7 @@ const UploadSongPage = () => {
           />
         </section>
 
-        <Button size="lg" className="rounded-md shadow-none py-6 text-lightest bg-dark transition hover:text-darkest hover:bg-brand">
+        <Button size="lg" className="rounded-md shadow-none py-6 text-darkest bg-brand transition hover:bg-lightest">
           Create
         </Button>
       </form>
