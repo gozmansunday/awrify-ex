@@ -13,7 +13,7 @@ const SidebarItem = ({ icon: Icon, label, active, href }: Props) => {
   return (
     <Link href={href}
       className={twMerge(
-        `flex items-center gap-4 text-lg px-6 py-2 rounded-full transition hover:text-darkest hover:bg-light`,
+        `flex items-center gap-3 px-6 py-2 rounded-full transition hover:text-darkest hover:bg-light`,
         active && "bg-brand text-darkest hover:bg-brand"
       )}
     >

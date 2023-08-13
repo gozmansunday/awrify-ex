@@ -20,7 +20,7 @@ const MainPageContent = ({ songs }: Props) => {
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-8 my-6 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 my-3 gap-x-8 gap-y-10">
       {songs.map((song) => (
         <SongItem
           key={song.id}
