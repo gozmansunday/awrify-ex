@@ -38,7 +38,7 @@ const Library = () => {
       <Box>
         {userSongs.map((song) => (
           <MediaItem
-            key={song.title}
+            key={song.id}
             onClick={() => { }}
             song={song}
           />

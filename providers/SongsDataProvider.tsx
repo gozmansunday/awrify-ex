@@ -48,6 +48,19 @@ const SongsDataProvider = ({ children }: Props) => {
   };
 
   useEffect(() => {
+    supabase
+      .channel("any")
+      .on("postgres_changes", {
+        event: "*",
+        schema: "public",
+        table: "songs"
+      }, payload => {
+        if (payload) {
+          getAllSongs();
+          getUserSongs();
+        }
+      }).subscribe();
+    
     getAllSongs();
     getUserSongs();
   }, [userData]);

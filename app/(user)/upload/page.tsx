@@ -37,17 +37,6 @@ const UploadSongPage = () => {
       const songFile = values.song?.[0];
       const imageFile = values.image?.[0];
 
-      console.log(userData);
-
-      if (imageFile) {
-        console.log("image!");
-      }
-
-      if (songFile) {
-        console.log("song!");
-      }
-
-
       if (!songFile || !imageFile || !userData) {
         toast({
           variant: "destructive",

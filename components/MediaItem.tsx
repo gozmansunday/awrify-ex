@@ -22,11 +22,11 @@ const MediaItem = ({ onClick, song }: Props) => {
 
   return (
     <div onClick={handleClick}
-      className="flex items-center gap-3 p-1 rounded-md cursor-pointer bg-transparent hover:bg-neutral-800/75"
+      className="flex items-center gap-3 p-1 rounded-xl cursor-pointer bg-transparent hover:bg-neutral-800/75"
     >
       <div className="relative min-w-[40px] min-h-[40px] overflow-hidden">
         <Image src={imageUrl as string} alt={song.title}
-          className="rounded" fill
+          className="rounded-lg" fill
         />
       </div>
 
