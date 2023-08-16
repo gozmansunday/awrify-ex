@@ -4,8 +4,7 @@ import { ReactNode, useEffect } from "react";
 
 // Local imports
 import supabase from "@/config/supabaseClient";
-import { useAllSongsStore, useUserDataStore, useUserSongsStore } from "@/hooks/useStore";
-import UserDataProvider from "./UserDataProvider";
+import { useAllSongsStore, useUserDataStore, useUserSongsStore, useSearchedSongsStore } from "@/hooks/useStore";
 
 interface Props {
   children: ReactNode;
@@ -14,6 +13,7 @@ interface Props {
 const SongsDataProvider = ({ children }: Props) => {
   const { setAllSongs } = useAllSongsStore();
   const { setUserSongs } = useUserSongsStore();
+  const { setSearchedSongs } = useSearchedSongsStore();
   const { userData } = useUserDataStore();
 
   // Get all songs in database
@@ -47,7 +47,30 @@ const SongsDataProvider = ({ children }: Props) => {
     setUserSongs(data as any);
   };
 
+  // Get searched songs
+  const getSearchedSongs = async (title: string) => {
+    if (!userData) return;
+
+    if (!title) {
+      const allSongs = await getAllSongs();
+      return allSongs;
+    }
+
+    const { data, error } = await supabase
+      .from("songs")
+      .select("*")
+      .ilike("title", `%${title}%`)
+      .order("created_at", { ascending: false });
+    
+    if (error) {
+      console.error(error);
+    }
+
+    setSearchedSongs(data as any);
+  };
+
   useEffect(() => {
+    // Update songs whenever the database gets updated
     supabase
       .channel("any")
       .on("postgres_changes", {

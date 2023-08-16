@@ -31,8 +31,19 @@ const useUserSongsStore = create<UserSongsState>()((set) => ({
   setUserSongs: (userSongsData) => set(() => ({ userSongs: userSongsData })),
 }));
 
+interface SearchedSongsState {
+  searchedSongs: Song[];
+  setSearchedSongs: (searchedSongsData: Song[]) => void;
+}
+
+const useSearchedSongsStore = create<SearchedSongsState>()((set) => ({
+  searchedSongs: [],
+  setSearchedSongs: (searchedSongsData) => set(() => ({ searchedSongs: searchedSongsData })),
+}));
+
 export {
   useUserDataStore,
   useAllSongsStore,
   useUserSongsStore,
+  useSearchedSongsStore
 };
