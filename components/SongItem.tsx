@@ -5,7 +5,7 @@ import { BsPlayCircleFill } from "react-icons/bs";
 
 interface Props {
   song: Song;
-  onClick: (id: string) => void;
+  onClick: (id: number) => void;
 }
 
 const SongItem = ({ song, onClick }: Props) => {
