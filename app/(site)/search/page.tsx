@@ -43,7 +43,7 @@ const SearchPage = ({ searchParams }: Props) => {
 
   useEffect(() => {
     getSearchedSongs(searchParams.title);
-  }, [searchedSongs]);
+  }, [searchParams.title]);
   
   console.log(searchedSongs);
   return (
