@@ -5,7 +5,7 @@ import { Song } from "@/interfaces/interface";
 import Image from "next/image";
 
 interface Props {
-  onClick?: (id: string) => void;
+  onClick?: (id: number) => void;
   song: Song;
 }
 
