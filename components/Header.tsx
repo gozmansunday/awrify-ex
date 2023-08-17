@@ -76,13 +76,19 @@ const Header = ({ children, className }: Props) => {
 
         {/* Mobile devices home button */}
         <div className="flex items-center gap-3 md:hidden">
-          <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-brand text-darkest">
-            <GiCompactDisc className="text-3xl" />
-          </Button>
-          <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-dark text-lightest">
-            <BsSearch className="text-2xl" />
-          </Button>
-          <Button onClick={handleUpload} size="icon" className="rounded-full shadow-none h-10 w-10 bg-dark text-lightest">
+          <Link href="/">
+            <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-brand text-darkest hover:bg-brand hover:text-darkest">
+              <GiCompactDisc className="text-3xl" />
+            </Button>
+          </Link>
+
+          <Link href="search">
+            <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-dark text-lightest hover:bg-brand hover:text-darkest">
+              <BsSearch className="text-2xl" />
+            </Button>
+          </Link>
+          
+          <Button onClick={handleUpload} size="icon" className="rounded-full shadow-none h-10 w-10 bg-dark text-lightest hover:bg-brand hover:text-darkest">
             <BsPlusLg className="text-2xl" />
           </Button>
         </div>

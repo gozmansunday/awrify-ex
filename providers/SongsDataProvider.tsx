@@ -47,28 +47,6 @@ const SongsDataProvider = ({ children }: Props) => {
     setUserSongs(data as any);
   };
 
-  // Get searched songs
-  const getSearchedSongs = async (title: string) => {
-    if (!userData) return;
-
-    if (!title) {
-      const allSongs = await getAllSongs();
-      return allSongs;
-    }
-
-    const { data, error } = await supabase
-      .from("songs")
-      .select("*")
-      .ilike("title", `%${title}%`)
-      .order("created_at", { ascending: false });
-    
-    if (error) {
-      console.error(error);
-    }
-
-    setSearchedSongs(data as any);
-  };
-
   useEffect(() => {
     // Update songs whenever the database gets updated
     supabase

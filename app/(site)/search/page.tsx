@@ -1,10 +1,12 @@
 "use client";
 
 import Header from "@/components/Header";
+import SearchContent from "@/components/SearchContent";
 import SearchInput from "@/components/SearchInput";
 // Local imports
 import supabase from "@/config/supabaseClient";
 import { useAllSongsStore, useSearchedSongsStore, useUserDataStore } from "@/hooks/useStore";
+import { useEffect } from "react";
 
 interface Props {
   searchParams: {
@@ -13,12 +15,13 @@ interface Props {
 }
 
 const SearchPage = ({ searchParams }: Props) => {
-  const { setSearchedSongs } = useSearchedSongsStore();
+  const { setSearchedSongs, searchedSongs } = useSearchedSongsStore();
   const { userData } = useUserDataStore();
   const { allSongs } = useAllSongsStore();
 
   const getSearchedSongs = async (title: string) => {
     if (!userData) return;
+    console.log("wagwan!");
 
     if (!title) {
       setSearchedSongs(allSongs);
@@ -38,17 +41,24 @@ const SearchPage = ({ searchParams }: Props) => {
     setSearchedSongs(data as any);
   };
 
+  useEffect(() => {
+    getSearchedSongs(searchParams.title);
+  }, [searchedSongs]);
+  
+  console.log(searchedSongs);
   return (
     <main className="p-3 md:p-6">
-      <Header>
-        <div>
-          <h1 className="text-lightest text-2xl font-semibold md:text-3xl">
-            Search
-          </h1>
+      <Header className="space-y-5 md:space-y-8">
+        <h1 className="text-lightest text-2xl font-semibold md:text-3xl">
+          Search
+        </h1>
 
-          <SearchInput />
-        </div>
+        <SearchInput />
       </Header>
+
+      <section className="my-8">
+        <SearchContent songs={searchedSongs} />
+      </section>      
     </main>
   );
 };

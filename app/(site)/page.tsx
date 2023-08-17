@@ -16,13 +16,11 @@ const HomePage = () => {
 
   return (
     <main className="p-3 md:p-6">
-      <Header>
-        <div>
-          <h1 className="text-lightest text-2xl font-semibold md:text-3xl">
-            {userData ? `Welcome back, ${userData.user.user_metadata.name.split(" ")[0]}!` : "Listen to the best music!"}
-          </h1>
-        </div>
-        <div className="grid mt-5 lg:grid-cols-2 md:mt-8">
+      <Header className="space-y-5 md:space-y-8">
+        <h1 className="text-lightest text-2xl font-semibold md:text-3xl">
+          {userData ? `Welcome back, ${userData.user.user_metadata.name.split(" ")[0]}!` : "Listen to the best music!"}
+        </h1>
+        <div className="grid lg:grid-cols-2">
           <FavSongs
             icon={BsStarFill}
             name="Favorite Songs"
@@ -31,7 +29,7 @@ const HomePage = () => {
         </div>
       </Header>
 
-      <section className="mt-8 mb-3">
+      <section className="my-8">
         <div>
           <h1 className="text-lightest text-xl md:text-2xl">Newest Songs</h1>
         </div>
