@@ -1,7 +1,9 @@
 "use client";
 
+// Local imports
 import { Song } from "@/interfaces/interface";
 import MediaItem from "./MediaItem";
+import LikeButton from "./LikeButton";
 
 interface Props {
   songs: Song[];
@@ -21,11 +23,16 @@ const SearchContent = ({ songs }: Props) => {
   return (
     <div className="flex flex-col gap-3 my-3">
       {songs.map((song) => (
-        <MediaItem
-          key={song.id}
-          onClick={() => { }}
-          song={song}
-        />
+        <div key={song.id} className="flex items-center gap-3">
+          <div className="w-full">
+            <MediaItem
+              onClick={() => { }}
+              song={song}
+            />
+          </div>
+
+          <LikeButton song={song} />
+        </div>
       ))}
     </div>
   );

@@ -17,7 +17,7 @@ export interface GoogleDataProps {
 }
 
 export interface Song {
-  id: string;
+  id: number;
   user_id: string;
   title: string;
   author: string;

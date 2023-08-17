@@ -20,9 +20,6 @@ const SearchPage = ({ searchParams }: Props) => {
   const { allSongs } = useAllSongsStore();
 
   const getSearchedSongs = async (title: string) => {
-    if (!userData) return;
-    console.log("wagwan!");
-
     if (!title) {
       setSearchedSongs(allSongs);
       return;
@@ -44,8 +41,6 @@ const SearchPage = ({ searchParams }: Props) => {
   useEffect(() => {
     getSearchedSongs(searchParams.title);
   }, [searchParams.title]);
-  
-  console.log(searchedSongs);
   return (
     <main className="p-3 md:p-6">
       <Header className="space-y-5 md:space-y-8">
