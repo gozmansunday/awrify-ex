@@ -22,13 +22,11 @@ const Wrapper = ({ children }: Props) => {
     {
       icon: BsHouseFill,
       label: 'Home',
-      active: pathname !== '/search',
       href: '/'
     },
     {
       icon: BsSearch,
       label: 'Search',
-      active: pathname === '/search',
       href: '/search'
     }
   ], []);

@@ -1,3 +1,7 @@
+"use client";
+
+import Header from "@/components/Header";
+import SearchInput from "@/components/SearchInput";
 // Local imports
 import supabase from "@/config/supabaseClient";
 import { useAllSongsStore, useSearchedSongsStore, useUserDataStore } from "@/hooks/useStore";
@@ -35,9 +39,17 @@ const SearchPage = ({ searchParams }: Props) => {
   };
 
   return (
-    <div>
-      
-    </div>
+    <main className="p-3 md:p-6">
+      <Header>
+        <div>
+          <h1 className="text-lightest text-2xl font-semibold md:text-3xl">
+            Search
+          </h1>
+
+          <SearchInput />
+        </div>
+      </Header>
+    </main>
   );
 };
 
