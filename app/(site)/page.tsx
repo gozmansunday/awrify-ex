@@ -23,8 +23,8 @@ const HomePage = () => {
         <div className="grid lg:grid-cols-2">
           <FavSongs
             icon={BsStarFill}
-            name="Favorite Songs"
-            href="favorite"
+            name="Favourite Songs"
+            href="/favourite"
           />
         </div>
       </Header>

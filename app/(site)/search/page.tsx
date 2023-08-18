@@ -13,6 +13,7 @@ interface Props {
     title: string;
   }
 }
+export const revalidate = 0;
 
 const SearchPage = ({ searchParams }: Props) => {
   const { setSearchedSongs, searchedSongs } = useSearchedSongsStore();
