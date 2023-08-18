@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import { IconType } from "react-icons";
 import { BsPlayCircleFill } from "react-icons/bs";
 
+// Local imports
+import { useLikedSongsStore, useUserDataStore } from "@/hooks/useStore";
+
 interface Props {
   icon: IconType;
   name: string;
@@ -12,9 +15,15 @@ interface Props {
 
 const FavSongs = ({ icon: Icon, name, href }: Props) => {
   const router = useRouter();
+  const { userData } = useUserDataStore();
+  const { likedSongs } = useLikedSongsStore();
 
   const handleClick = () => {
-    // Add auth before push
+    if (!userData) {
+      router.push("/login");
+      return;
+    }
+
     router.push(href);
   };
 
@@ -27,7 +36,7 @@ const FavSongs = ({ icon: Icon, name, href }: Props) => {
         <Icon className="text-3xl md:text-4xl" />
         <div className="font-clash -space-y-2 text-left">
           <h3 className="text-lg font-semibold md:text-xl">{name}</h3>
-          <h5 className="text-sm md:text-base">0 songs</h5>
+          <h5 className="text-sm md:text-base">{`${likedSongs.length} song${likedSongs.length !== 1 ? "s" : ""}`}</h5>
         </div>
       </section>
 
