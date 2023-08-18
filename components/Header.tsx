@@ -3,15 +3,16 @@
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { useRouter } from "next/navigation";
-import { BsChevronLeft, BsChevronRight, BsSearch, BsPersonFill } from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight, BsSearch, BsPersonFill, BsPlusLg } from "react-icons/bs";
 import { GiCompactDisc } from "react-icons/gi";
 import Link from "next/link";
-import { toast } from "react-hot-toast";
 
 // Local imports
 import { Button } from "./ui/button";
-import { useUserDataStore } from "@/hooks/useStore";
+import { useUserDataStore, useUserSongsStore, useLikedSongsStore } from "@/hooks/useStore";
 import supabase from "@/config/supabaseClient";
+import { ToastAction } from "./ui/toast";
+import { useToast } from "./ui/use-toast";
 
 interface Props {
   children: ReactNode;
@@ -20,19 +21,41 @@ interface Props {
 
 const Header = ({ children, className }: Props) => {
   const router = useRouter();
+  const { toast } = useToast();
   const { userData, setUserData } = useUserDataStore();
+  const { setUserSongs } = useUserSongsStore();
+  const { setLikedSongs } = useLikedSongsStore();
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     
     setUserData(null);
+    setUserSongs([]);
+    setLikedSongs([]);
     localStorage.removeItem("userData");
     router.push("/login");
     
     if (error) {
-      toast.error(error.message);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        action: <ToastAction altText="Close">Close</ToastAction>
+      });
     } else {
-      toast.success("Logged out!");
+      toast({
+        title: "See you soon!",
+        description: "You've successfully logged out.",
+        action: <ToastAction altText="Close">Close</ToastAction>
+      });
+    }
+  };
+
+  const handleUpload = () => {
+    if (!userData) {
+      router.push("/login");
+    } else {
+      router.push("/upload");
     }
   };
 
@@ -55,11 +78,20 @@ const Header = ({ children, className }: Props) => {
 
         {/* Mobile devices home button */}
         <div className="flex items-center gap-3 md:hidden">
-          <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-brand text-darkest">
-            <GiCompactDisc className="text-3xl" />
-          </Button>
-          <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-dark text-lightest">
-            <BsSearch className="text-2xl" />
+          <Link href="/">
+            <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-brand text-darkest hover:bg-brand hover:text-darkest">
+              <GiCompactDisc className="text-3xl" />
+            </Button>
+          </Link>
+
+          <Link href="search">
+            <Button size="icon" className="rounded-full shadow-none h-10 w-10 bg-dark text-lightest hover:bg-brand hover:text-darkest">
+              <BsSearch className="text-2xl" />
+            </Button>
+          </Link>
+          
+          <Button onClick={handleUpload} size="icon" className="rounded-full shadow-none h-10 w-10 bg-dark text-lightest hover:bg-brand hover:text-darkest">
+            <BsPlusLg className="text-2xl" />
           </Button>
         </div>
 

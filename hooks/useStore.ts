@@ -1,3 +1,4 @@
+import { Song } from "@/interfaces/interface";
 import { create } from "zustand";
 
 interface UserDataState {
@@ -10,6 +11,50 @@ const useUserDataStore = create<UserDataState>()((set) => ({
   setUserData: (data) => set(() => ({ userData: data })),
 }));
 
+interface AllSongsState {
+  allSongs: Song[];
+  setAllSongs: (allSongsData: Song[]) => void;
+}
+
+const useAllSongsStore = create<AllSongsState>()((set) => ({
+  allSongs: [],
+  setAllSongs: (allSongsData) => set(() => ({ allSongs: allSongsData })),
+}));
+
+interface UserSongsState {
+  userSongs: Song[];
+  setUserSongs: (userSongsData: Song[]) => void;
+}
+
+const useUserSongsStore = create<UserSongsState>()((set) => ({
+  userSongs: [],
+  setUserSongs: (userSongsData) => set(() => ({ userSongs: userSongsData })),
+}));
+
+interface SearchedSongsState {
+  searchedSongs: Song[];
+  setSearchedSongs: (searchedSongsData: Song[]) => void;
+}
+
+const useSearchedSongsStore = create<SearchedSongsState>()((set) => ({
+  searchedSongs: [],
+  setSearchedSongs: (searchedSongsData) => set(() => ({ searchedSongs: searchedSongsData })),
+}));
+
+interface LikedSongsState {
+  likedSongs: Song[];
+  setLikedSongs: (likedSongsData: Song[]) => void;
+}
+
+const useLikedSongsStore = create<LikedSongsState>()((set) => ({
+  likedSongs: [],
+  setLikedSongs: (likedSongsData) => set(() => ({ likedSongs: likedSongsData })),
+}));
+
 export {
   useUserDataStore,
+  useAllSongsStore,
+  useUserSongsStore,
+  useSearchedSongsStore,
+  useLikedSongsStore
 };
